@@ -91,6 +91,25 @@
   }
   .nav-cta:hover{background:var(--navy-mid);transform:translateY(-1px)}
   .nav-left{display:flex;align-items:center;gap:14px}
+  .nav-auth{display:inline-flex;align-items:center;gap:10px}
+  .nav-signup{font-family:'Hanken Grotesk';font-weight:700;font-size:.8rem;letter-spacing:.02em;padding:8px 16px;border-radius:100px;border:none;background:var(--gold);color:var(--navy);cursor:pointer;transition:.25s;white-space:nowrap}
+  .nav-signup:hover{filter:brightness(1.05);transform:translateY(-1px)}
+  .nav-login{background:none;border:none;color:var(--muted);font-family:'Hanken Grotesk';font-weight:600;font-size:.76rem;cursor:pointer;white-space:nowrap;text-decoration:underline;text-underline-offset:2px;padding:4px}
+  .nav-login:hover{color:var(--navy)}
+  .auth-wrap{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(6,18,43,.55);backdrop-filter:blur(5px)}
+  .auth-wrap.open{display:flex}
+  .auth-card{background:var(--paper);border:1px solid var(--line);border-radius:22px;max-width:380px;width:100%;padding:28px 24px;position:relative;box-shadow:0 30px 80px rgba(6,18,43,.35);animation:fade .3s ease}
+  .auth-card h3{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--navy);margin-bottom:6px}
+  .auth-sub{color:var(--muted);font-size:.9rem;margin-bottom:18px;line-height:1.45}
+  .auth-close{position:absolute;top:12px;right:15px;background:none;border:none;font-size:1.7rem;line-height:1;color:var(--muted);cursor:pointer}
+  .auth-switch{margin-top:14px;font-size:.85rem;color:var(--muted);text-align:center}
+  .auth-switch button{background:none;border:none;color:var(--navy);font-weight:700;cursor:pointer;font-size:.85rem;text-decoration:underline;text-underline-offset:2px}
+  @media(max-width:430px){
+    .brand{font-size:1.15rem;gap:7px}
+    .nav-left{gap:9px}
+    .nav-signup{padding:7px 13px;font-size:.76rem}
+    .nav-login{font-size:.72rem}
+  }
   .menu-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:#fff;cursor:pointer;transition:.25s}
   .menu-btn span{display:block;width:18px;height:2px;border-radius:2px;background:var(--navy);margin:0 auto;transition:.3s}
   .menu-btn:hover{background:var(--ice-soft);border-color:var(--ice)}
@@ -567,7 +586,7 @@
     nav{background:rgba(12,17,29,.85)}
     .tabs{background:#111623}
     .dash-head{background:linear-gradient(180deg,#1a2233,#151b29)}
-    .card,.step,.tracker .controls,.faq details,.plan,.menu-btn,.essential,.basket-btn,.bk-item,.track-card,.track-error,.stat-card,.review,.rev-form,.sub-toggle,.reward.locked,.msg.bot{background:#1a2233}
+    .card,.step,.tracker .controls,.faq details,.plan,.menu-btn,.essential,.basket-btn,.bk-item,.track-card,.track-error,.stat-card,.review,.rev-form,.sub-toggle,.reward.locked,.msg.bot,.auth-card{background:#1a2233}
     .plan.feat{background:linear-gradient(170deg,#202a40,#171f2f)}
     .field input,.field select,.co-field input,.track-input input,.rev-form select,.rev-form input,.rev-form textarea,.promo input,.chat-input input{background:#10151f;color:var(--ink);border-color:#2c374d}
     .bk-qty button{background:#10151f;color:var(--navy);border-color:#2c374d}
@@ -606,6 +625,10 @@
     </button>
     <div class="brand"><span class="dot"></span>Agenova<sup>™</sup></div>
     <span id="navGreet" class="nav-greet" style="display:none"></span>
+    <span id="navAuth" class="nav-auth">
+      <button class="nav-signup" onclick="openAuth('signup')">Sign up</button>
+      <button class="nav-login" onclick="openAuth('login')">Log in</button>
+    </span>
   </div>
   <button class="basket-btn" id="basketBtn" aria-label="Open basket" onclick="openBasket()">
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M2.5 3.5h2l2 11a1.4 1.4 0 0 0 1.4 1.1h7.6a1.4 1.4 0 0 0 1.4-1.1L19.5 6H5"/></svg>
@@ -707,6 +730,32 @@
     <p>Get your full-year supply delivered automatically and save 10% on this order. You can cancel anytime.</p>
     <button class="btn btn-primary" onclick="acceptSub()">Yes, subscribe &amp; save 10%</button>
     <button class="modal-no" onclick="closeSubPrompt()">No thanks, one-time order</button>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-wrap" id="authModal" onclick="if(event.target===this)closeAuth()">
+  <div class="auth-card">
+    <button class="auth-close" onclick="closeAuth()" aria-label="Close">&times;</button>
+    <div id="authSignup">
+      <h3>Create your account</h3>
+      <p class="auth-sub">Join Agenova to track your routine, save your orders and post reviews, on any device.</p>
+      <div class="co-field"><label>Full name</label><input id="auName" placeholder="Jordan Smith"></div>
+      <div class="co-field"><label>Email</label><input id="auEmail" type="email" placeholder="you@email.com"></div>
+      <div class="co-field"><label>Password</label><input id="auPass" type="password" placeholder="At least 6 characters"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="doAuthSignup()">Sign up</button>
+      <p class="promo-msg" id="auMsg" style="margin-top:10px"></p>
+      <p class="auth-switch">Already got an account? <button onclick="authView('login')">Log in</button></p>
+    </div>
+    <div id="authLogin" style="display:none">
+      <h3>Welcome back</h3>
+      <p class="auth-sub">Log in to your Agenova account.</p>
+      <div class="co-field"><label>Email</label><input id="alEmail" type="email" placeholder="you@email.com"></div>
+      <div class="co-field"><label>Password</label><input id="alPass" type="password" placeholder="Your password"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="doAuthLogin()">Log in</button>
+      <p class="promo-msg" id="alMsg" style="margin-top:10px"></p>
+      <p class="auth-switch">New here? <button onclick="authView('signup')">Create an account</button></p>
+    </div>
   </div>
 </div>
 
@@ -1576,13 +1625,12 @@
   }
   function val(id){ const e=document.getElementById(id); return e?e.value:''; }
   function accMsg(t,cls){ const m=document.getElementById('acMsg'); if(m){ m.textContent=t; m.className='promo-msg '+(cls||''); } }
-  async function signup(){
-    const name=val('acSignName').trim(), email=val('acSignEmail').trim().toLowerCase(), pw=val('acSignPass');
-    if(!name||!email||!pw){ accMsg('Please fill in your name, email and password.','bad'); return; }
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ accMsg('Please enter a valid email address.','bad'); return; }
-    if(pw.length<6){ accMsg('Password must be at least 6 characters.','bad'); return; }
+  async function signupCore(name,email,pw,msg){
+    if(!name||!email||!pw){ msg('Please fill in your name, email and password.','bad'); return false; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg('Please enter a valid email address.','bad'); return false; }
+    if(pw.length<6){ msg('Password must be at least 6 characters.','bad'); return false; }
     if(authOnServer()){
-      accMsg('Creating your account…','');
+      msg('Creating your account…','');
       try{
         const d=await sbSignup(name,email,pw);
         if(d.access_token){
@@ -1590,33 +1638,50 @@
           authUser={name:uname(d.user,email)||name, email};
           persistAuth(); renderAccount();
           showToast('Welcome, '+name+'!','Your account has been created.');
-        } else {
-          accMsg('Account created. Check your email to confirm, then log in.','ok');
+          return true;
         }
-      }catch(e){ accMsg(e.message||'Could not sign up.','bad'); }
-      return;
+        msg('Account created. Check your email to confirm, then log in.','ok'); return false;
+      }catch(e){ msg(e.message||'Could not sign up.','bad'); return false; }
     }
-    if(accounts[email]){ accMsg('An account with that email already exists, try logging in.','bad'); return; }
+    if(accounts[email]){ msg('An account with that email already exists, try logging in.','bad'); return false; }
     accounts[email]={name, hash:hashPw(pw)}; session=email; persistAccounts(); persistSession(); renderAccount();
-    showToast('Welcome, '+name+'!','Your account has been created.');
+    showToast('Welcome, '+name+'!','Your account has been created.'); return true;
   }
-  async function login(){
-    const email=val('acLogEmail').trim().toLowerCase(), pw=val('acLogPass');
-    if(!email||!pw){ accMsg('Enter your email and password.','bad'); return; }
+  async function loginCore(email,pw,msg){
+    if(!email||!pw){ msg('Enter your email and password.','bad'); return false; }
     if(authOnServer()){
-      accMsg('Logging in…','');
+      msg('Logging in…','');
       try{
         const d=await sbLogin(email,pw);
         authSession={access_token:d.access_token, refresh_token:d.refresh_token};
         authUser={name:uname(d.user,(d.user&&d.user.email)||email), email:(d.user&&d.user.email)||email};
         persistAuth(); renderAccount();
-        showToast('Welcome back, '+authUser.name.split(' ')[0]+'!','You are logged in.');
-      }catch(e){ accMsg('Email or password not recognised (or email not yet confirmed).','bad'); }
-      return;
+        showToast('Welcome back, '+authUser.name.split(' ')[0]+'!','You are logged in.'); return true;
+      }catch(e){ msg('Email or password not recognised (or email not yet confirmed).','bad'); return false; }
     }
-    if(!accounts[email] || accounts[email].hash!==hashPw(pw)){ accMsg('Email or password not recognised.','bad'); return; }
+    if(!accounts[email] || accounts[email].hash!==hashPw(pw)){ msg('Email or password not recognised.','bad'); return false; }
     session=email; persistSession(); renderAccount();
-    showToast('Welcome back, '+accounts[email].name+'!','You are logged in.');
+    showToast('Welcome back, '+accounts[email].name+'!','You are logged in.'); return true;
+  }
+  async function signup(){ await signupCore(val('acSignName').trim(), val('acSignEmail').trim().toLowerCase(), val('acSignPass'), accMsg); }
+  async function login(){ await loginCore(val('acLogEmail').trim().toLowerCase(), val('acLogPass'), accMsg); }
+  /* auth popup */
+  function auMsg(t,cls){ const m=document.getElementById('auMsg'); if(m){ m.textContent=t; m.className='promo-msg '+(cls||''); } }
+  function alMsg(t,cls){ const m=document.getElementById('alMsg'); if(m){ m.textContent=t; m.className='promo-msg '+(cls||''); } }
+  function openAuth(mode){ document.getElementById('authModal').classList.add('open'); authView(mode||'signup'); }
+  function closeAuth(){ document.getElementById('authModal').classList.remove('open'); }
+  function authView(mode){
+    document.getElementById('authSignup').style.display = mode==='login'?'none':'block';
+    document.getElementById('authLogin').style.display = mode==='login'?'block':'none';
+    auMsg(''); alMsg('');
+  }
+  async function doAuthSignup(){
+    const ok=await signupCore(val('auName').trim(), val('auEmail').trim().toLowerCase(), val('auPass'), auMsg);
+    if(ok){ closeAuth(); document.getElementById('auName').value=''; document.getElementById('auEmail').value=''; document.getElementById('auPass').value=''; }
+  }
+  async function doAuthLogin(){
+    const ok=await loginCore(val('alEmail').trim().toLowerCase(), val('alPass'), alMsg);
+    if(ok){ closeAuth(); document.getElementById('alEmail').value=''; document.getElementById('alPass').value=''; }
   }
   async function logout(){
     if(authOnServer()){
@@ -1630,6 +1695,7 @@
     const u=currentUser();
     el.textContent = u ? ('Hi, '+u.name.split(' ')[0]) : '';
     el.style.display = u ? 'inline' : 'none';
+    const na=document.getElementById('navAuth'); if(na) na.style.display = u ? 'none' : 'inline-flex';
   }
   function renderAccount(){
     updateGreeting();
