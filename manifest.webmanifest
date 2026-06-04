@@ -1,0 +1,15 @@
+{
+  "name": "Agenova",
+  "short_name": "Agenova",
+  "description": "Agenova daily skin & vitality supplement.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c111d",
+  "theme_color": "#0c2452",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

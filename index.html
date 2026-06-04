@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agenova™ · Skin & Vitality Supplement</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c111d" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Agenova">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0c2452;
+    --navy-deep:#06122b;
+    --navy-mid:#163a72;
+    --ice:#9ec7ef;
+    --ice-soft:#dce9f8;
+    --paper:#f6f2ea;
+    --paper-card:#fffdf9;
+    --gold:#c6a15b;
+    --gold-soft:#e9d6ab;
+    --ink:#13233f;
+    --muted:#5d6b82;
+    --line:#e4ddd0;
+    --shadow:0 30px 60px -25px rgba(8,24,56,.35);
+    --shadow-sm:0 10px 30px -15px rgba(8,24,56,.3);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;color-scheme:light}
+  body{
+    font-family:'Hanken Grotesk',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.4;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+  ::selection{background:var(--gold-soft);color:var(--navy)}
+  h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:500;line-height:1.05;letter-spacing:-.01em}
+
+  /* ---------- SPLASH / STARTUP ---------- */
+  #splash{
+    position:fixed;inset:0;z-index:9999;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+    background:radial-gradient(circle at 50% 38%, #143064 0%, #0a1c40 46%, #06112a 100%);
+    transition:opacity .6s ease, visibility .6s;
+  }
+  #splash.hide{opacity:0;visibility:hidden;pointer-events:none}
+  .splash-logo{
+    width:108px;height:108px;border-radius:50%;border:3px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:600;font-size:3.4rem;color:var(--gold);
+    animation:splashPop .8s cubic-bezier(.2,.9,.3,1.3) both, splashGlow 2.4s ease-in-out infinite .8s;
+  }
+  .splash-word{font-family:'Fraunces',serif;font-size:2.6rem;color:#fff;letter-spacing:.02em;opacity:0;animation:splashUp .7s ease .35s both}
+  .splash-word sup{font-size:.45em;color:var(--gold)}
+  .splash-tag{font-size:.8rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);opacity:0;animation:splashUp .7s ease .6s both}
+  @keyframes splashPop{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
+  @keyframes splashUp{0%{transform:translateY(12px);opacity:0}100%{transform:translateY(0);opacity:1}}
+  @keyframes splashGlow{0%,100%{box-shadow:0 0 0 0 rgba(201,161,91,.35)}50%{box-shadow:0 0 0 14px rgba(201,161,91,0)}}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px clamp(18px,5vw,64px);
+    background:rgba(246,242,234,.82);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.4rem;color:var(--navy);font-weight:600;letter-spacing:.02em}
+  .brand .dot{width:11px;height:11px;border-radius:50%;background:var(--navy);box-shadow:0 0 0 4px var(--ice-soft)}
+  .brand sup{font-size:.55em;color:var(--gold);font-weight:600}
+  .nav-cta{
+    font-family:'Hanken Grotesk';font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+    color:var(--paper);background:var(--navy);padding:10px 20px;border-radius:100px;text-decoration:none;
+    transition:.3s;
+  }
+  .nav-cta:hover{background:var(--navy-mid);transform:translateY(-1px)}
+  .nav-left{display:flex;align-items:center;gap:14px}
+  .menu-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:#fff;cursor:pointer;transition:.25s}
+  .menu-btn span{display:block;width:18px;height:2px;border-radius:2px;background:var(--navy);margin:0 auto;transition:.3s}
+  .menu-btn:hover{background:var(--ice-soft);border-color:var(--ice)}
+  .menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-btn.open span:nth-child(2){opacity:0}
+  .menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  .scrim{position:fixed;inset:0;background:rgba(6,18,43,.5);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:.35s;z-index:99}
+  .scrim.show{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;left:0;height:100%;width:min(86vw,344px);background:var(--paper-card);border-right:1px solid var(--line);box-shadow:var(--shadow);transform:translateX(-100%);transition:transform .42s cubic-bezier(.22,.9,.3,1);z-index:100;display:flex;flex-direction:column;overflow-y:auto}
+  .drawer.open{transform:translateX(0)}
+  .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}
+  .drawer-head .x{background:none;border:none;font-size:1.7rem;line-height:1;color:var(--muted);cursor:pointer}
+  .drawer-nav{padding:16px 16px 34px;display:flex;flex-direction:column;gap:4px}
+  .drawer-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:20px 8px 8px}
+  .drawer-label:first-child{margin-top:6px}
+  .drawer-nav>button{font-family:'Hanken Grotesk';text-align:left;font-size:1rem;font-weight:600;color:var(--ink);background:none;border:none;border-radius:11px;padding:13px 14px;cursor:pointer;transition:.2s}
+  .drawer-nav>button:hover{background:var(--ice-soft);color:var(--navy)}
+  .essential{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:11px;background:#fff;border:1px solid var(--line);margin-bottom:6px}
+  .essential span{font-size:.84rem;color:var(--muted)}
+  .essential strong{font-family:'Fraunces';color:var(--navy);font-weight:600}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;
+    padding:clamp(40px,7vw,90px) clamp(18px,5vw,64px) clamp(30px,5vw,70px);
+    max-width:1280px;margin:0 auto;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--gold);
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+  .hero h1{
+    font-size:clamp(2.8rem,6vw,5rem);color:var(--navy);
+    margin-bottom:22px;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero p.lede{font-size:1.12rem;color:var(--muted);max-width:30rem;margin-bottom:32px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn{
+    font-family:'Hanken Grotesk';font-weight:600;font-size:.95rem;letter-spacing:.02em;
+    padding:15px 30px;border-radius:100px;border:none;cursor:pointer;text-decoration:none;transition:.3s;
+  }
+  .btn-primary{background:var(--navy);color:var(--paper)}
+  .btn-primary:hover{background:var(--navy-mid);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+  .btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+  .btn-ghost:hover{background:var(--navy);color:var(--paper)}
+  .hero-stats{display:flex;gap:30px;margin-top:42px;flex-wrap:wrap}
+  .hero-stats .s strong{font-family:'Fraunces';font-size:1.9rem;color:var(--navy);display:block}
+  .hero-stats .s span{font-size:.8rem;color:var(--muted);letter-spacing:.04em}
+
+  /* ---------- BOTTLE + PILL (CSS art) ---------- */
+  .product-stage{
+    position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:430px;
+  }
+  .glow{
+    position:absolute;width:380px;height:380px;border-radius:50%;
+    background:radial-gradient(circle,var(--ice-soft) 0%,transparent 65%);
+    filter:blur(8px);z-index:-1;top:0;
+  }
+  .bottle{
+    position:relative;width:200px;height:330px;
+    background:linear-gradient(160deg,#ffffff 0%,#f1f4f9 55%,#e6ebf3 100%);
+    border-radius:26px 26px 22px 22px;
+    box-shadow:var(--shadow),inset 0 2px 6px rgba(255,255,255,.9),inset -14px 0 26px rgba(12,36,82,.07);
+    animation:float 6s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(-1deg)}}
+  .bottle .cap{
+    position:absolute;top:-30px;left:50%;transform:translateX(-50%);
+    width:130px;height:42px;border-radius:12px 12px 6px 6px;
+    background:linear-gradient(180deg,var(--navy-mid),var(--navy-deep));
+    box-shadow:inset 0 -4px 8px rgba(0,0,0,.3);
+  }
+  .bottle .cap::after{
+    content:"";position:absolute;inset:6px 8px auto 8px;height:4px;border-radius:4px;
+    background:repeating-linear-gradient(90deg,rgba(255,255,255,.12) 0 3px,transparent 3px 7px);
+  }
+  .bottle .label{
+    position:absolute;inset:64px 16px 26px;border-radius:14px;
+    background:#fff;border:1px solid #eef1f6;
+    box-shadow:inset 0 1px 4px rgba(12,36,82,.06);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px 10px;
+  }
+  .bottle .label .lname{font-family:'Fraunces';font-size:1.7rem;font-weight:600;color:var(--navy);letter-spacing:.04em;line-height:1}
+  .bottle .label .lname sup{font-size:.5em;color:var(--gold)}
+  .bottle .label .lsub{font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .bottle .label .ldiv{width:38px;height:2px;background:var(--gold);margin:12px 0}
+  .bottle .label .lbottom{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:600}
+  .bottle .label .lcount{font-family:'Fraunces';font-size:1rem;color:var(--navy);margin-top:auto}
+
+  .pill{
+    position:absolute;bottom:14px;right:-6px;width:120px;height:56px;border-radius:30px;
+    transform:rotate(-22deg);
+    box-shadow:0 18px 30px -10px rgba(12,36,82,.45);
+    overflow:hidden;animation:float 6s ease-in-out infinite .6s;
+  }
+  .pill .half{position:absolute;top:0;height:100%;width:50%}
+  .pill .left{left:0;background:linear-gradient(180deg,var(--navy-mid),var(--navy-deep))}
+  .pill .right{right:0;background:linear-gradient(180deg,#ffffff,#eef1f7)}
+  .pill::after{content:"";position:absolute;top:8px;left:10px;width:46px;height:12px;border-radius:10px;background:rgba(255,255,255,.25);filter:blur(2px)}
+
+  /* ---------- DASHBOARD ---------- */
+  .dash-wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 clamp(18px,5vw,64px) 80px}
+  .dash{
+    background:var(--paper-card);border:1px solid var(--line);border-radius:30px;
+    box-shadow:var(--shadow);overflow:hidden;
+  }
+  .dash-head{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:24px clamp(20px,3vw,38px);border-bottom:1px solid var(--line);flex-wrap:wrap;
+    background:linear-gradient(180deg,#fff,var(--paper-card));
+  }
+  .dash-head h2{font-size:1.5rem;color:var(--navy)}
+  .dash-head .live{display:flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .dash-head .live .blip{width:9px;height:9px;border-radius:50%;background:#3fae6a;box-shadow:0 0 0 0 rgba(63,174,106,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,174,106,.5)}70%{box-shadow:0 0 0 9px rgba(63,174,106,0)}100%{box-shadow:0 0 0 0 rgba(63,174,106,0)}}
+
+  .tabs{display:flex;gap:6px;padding:14px clamp(20px,3vw,38px);overflow-x:auto;border-bottom:1px solid var(--line);background:#fcfaf5}
+  .tab{
+    font-family:'Hanken Grotesk';font-weight:600;font-size:.86rem;letter-spacing:.02em;white-space:nowrap;
+    padding:10px 18px;border-radius:100px;border:1px solid transparent;background:transparent;color:var(--muted);cursor:pointer;transition:.25s;
+  }
+  .tab:hover{color:var(--navy);background:var(--ice-soft)}
+  .tab.active{background:var(--navy);color:var(--paper)}
+
+  .panel{display:none;padding:clamp(24px,3.5vw,46px) clamp(20px,3vw,38px);animation:fade .4s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .panel h3{font-size:1.7rem;color:var(--navy);margin-bottom:8px}
+  .panel .sub{color:var(--muted);margin-bottom:28px;max-width:46rem}
+
+  .grid{display:grid;gap:18px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;transition:.3s;position:relative;overflow:hidden;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);border-color:var(--ice)}
+  .card .ic{
+    width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    background:var(--ice-soft);color:var(--navy);font-family:'Fraunces';font-weight:600;font-size:1.1rem;margin-bottom:16px;
+  }
+  .card h4{font-size:1.15rem;color:var(--navy);margin-bottom:6px}
+  .card .role{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+  .card p{font-size:.92rem;color:var(--muted)}
+
+  /* fact strip */
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
+  .fact{background:linear-gradient(160deg,var(--navy),var(--navy-deep));color:#fff;border-radius:18px;padding:22px}
+  .fact strong{font-family:'Fraunces';font-size:1.9rem;display:block;line-height:1}
+  .fact span{font-size:.76rem;color:var(--ice);letter-spacing:.04em}
+
+  .steps{counter-reset:step;display:grid;gap:14px}
+  .step{display:flex;gap:18px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+  .step::before{
+    counter-increment:step;content:counter(step);
+    flex:0 0 auto;width:38px;height:38px;border-radius:50%;background:var(--navy);color:#fff;
+    font-family:'Fraunces';font-size:1.1rem;display:flex;align-items:center;justify-content:center;
+  }
+  .step h4{font-size:1.05rem;color:var(--navy);margin-bottom:2px}
+  .step p{font-size:.9rem;color:var(--muted)}
+
+  /* pricing */
+  .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+  .plan{border:1.5px solid var(--line);border-radius:22px;padding:30px;background:#fff;position:relative;transition:.3s}
+  .plan:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
+  .plan.feat{border-color:var(--navy);background:linear-gradient(170deg,#fff, #f4f7fc)}
+  .plan .tag{display:inline-flex;align-items:center;gap:6px;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--gold);padding:7px 13px;border-radius:100px;margin-bottom:14px}
+  .plan .tag.save{background:var(--ice-soft);color:var(--navy)}
+  .plan .tag.flex{background:transparent;color:var(--muted);border:1px solid var(--line)}
+  .plan h4{font-size:1.3rem;color:var(--navy)}
+  .plan .price{font-family:'Fraunces';font-size:3rem;color:var(--navy);line-height:1;margin:14px 0 4px}
+  .plan .price small{font-size:1rem;color:var(--muted);font-family:'Hanken Grotesk'}
+  .plan .per{font-size:.82rem;color:var(--gold);font-weight:600;margin-bottom:4px}
+  .plan .percap{font-size:.82rem;color:var(--muted);margin-bottom:18px}
+  .plan ul{list-style:none;display:grid;gap:10px;margin-bottom:24px}
+  .plan li{font-size:.9rem;color:var(--muted);display:flex;gap:10px;align-items:flex-start}
+  .plan li::before{content:"✓";color:var(--navy);font-weight:700}
+  .plan .btn{width:100%;text-align:center;display:block}
+  .plan-note{font-size:.72rem;color:var(--muted);line-height:1.5;margin-top:14px}
+  .plan-note .star{color:var(--gold);font-weight:700}
+
+  /* tracker */
+  .tracker{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:start}
+  .tracker .controls{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px}
+  .field{margin-bottom:20px}
+  .field label{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--navy);margin-bottom:8px}
+  .field input,.field select{
+    width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;font-family:'Hanken Grotesk';font-size:1rem;color:var(--ink);background:#fdfcf9;
+  }
+  .field input:focus,.field select:focus{outline:none;border-color:var(--navy)}
+  .readout{background:linear-gradient(165deg,var(--navy),var(--navy-deep));color:#fff;border-radius:18px;padding:30px;display:grid;gap:18px}
+  .readout .big{font-family:'Fraunces';font-size:3.4rem;line-height:1}
+  .readout .big small{font-size:1rem;color:var(--ice);font-family:'Hanken Grotesk'}
+  .readout .row{display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.15);padding-top:14px;font-size:.92rem}
+  .readout .row span:first-child{color:var(--ice)}
+  .bar{height:10px;border-radius:10px;background:rgba(255,255,255,.18);overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ice),#fff);border-radius:10px;transition:width .5s ease}
+  .reorder{font-size:.84rem;background:rgba(198,161,91,.18);border:1px solid rgba(198,161,91,.4);color:var(--gold-soft);border-radius:12px;padding:12px 14px}
+
+  /* faq */
+  .faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 22px;margin-bottom:12px}
+  .faq summary{cursor:pointer;font-weight:600;color:var(--navy);padding:14px 0;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-family:'Fraunces';font-size:1.4rem;color:var(--gold)}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{color:var(--muted);padding:0 0 16px;font-size:.92rem}
+
+  /* footer */
+  footer{position:relative;z-index:1;background:var(--navy-deep);color:#c9d6ec;padding:54px clamp(18px,5vw,64px) 40px}
+  footer .ftop{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:30px}
+  footer .brand{color:#fff}
+  footer .disclaimer{max-width:1280px;margin:24px auto 0;font-size:.74rem;color:#8295b6;line-height:1.7}
+  footer .copy{max-width:1280px;margin:20px auto 0;font-size:.78rem;color:#6c7e9e}
+
+  @media(max-width:880px){
+    .hero{grid-template-columns:1fr}
+    .product-stage{min-height:360px;margin-top:10px}
+    .tracker{grid-template-columns:1fr}
+    .facts{grid-template-columns:repeat(2,1fr)}
+    .g3,.g2,.plans{grid-template-columns:1fr}
+  }
+  /* ---------- BASKET + CHECKOUT + TRACK ---------- */
+  .basket-btn{position:relative;width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.25s}
+  .basket-btn:hover{background:var(--ice-soft);border-color:var(--ice)}
+  .basket-btn .count{position:absolute;top:-7px;right:-7px;min-width:20px;height:20px;padding:0 5px;border-radius:20px;background:var(--gold);color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--paper)}
+
+  .drawer.right{left:auto;right:0;border-right:none;border-left:1px solid var(--line);transform:translateX(100%)}
+  .drawer.right.open{transform:translateX(0)}
+
+  .basket-body{padding:18px 18px 10px;display:flex;flex-direction:column;gap:12px}
+  .bk-empty{color:var(--muted);text-align:center;padding:34px 10px;font-size:.95rem;line-height:1.7}
+  .bk-item{display:grid;grid-template-columns:1fr auto;gap:4px 12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .bk-item h4{font-size:1rem;color:var(--navy)}
+  .bk-item .meta{font-size:.78rem;color:var(--muted)}
+  .bk-item .line{font-family:'Fraunces';color:var(--navy);align-self:center;text-align:right}
+  .bk-qty{display:flex;align-items:center;gap:10px;margin-top:8px}
+  .bk-qty button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--navy);font-size:1rem;cursor:pointer;line-height:1}
+  .bk-qty button:hover{background:var(--ice-soft)}
+  .bk-qty span{min-width:18px;text-align:center;font-weight:600}
+  .bk-remove{grid-column:1/-1;justify-self:start;background:none;border:none;color:var(--muted);font-size:.78rem;cursor:pointer;text-decoration:underline;padding:4px 0 0}
+  .bk-summary{border-top:1px solid var(--line);padding-top:14px;margin-top:4px;display:grid;gap:8px}
+  .bk-summary .row{display:flex;justify-content:space-between;font-size:.92rem;color:var(--muted)}
+  .bk-summary .row.total{font-size:1.2rem;color:var(--navy);font-family:'Fraunces';margin-top:4px}
+  .basket-foot{padding:14px 18px 26px}
+  .basket-foot .btn{width:100%;display:block;text-align:center}
+
+  .co-field{margin-bottom:14px}
+  .co-field label{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--navy);margin-bottom:6px}
+  .co-field input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:11px;font-family:'Hanken Grotesk';font-size:.98rem;color:var(--ink);background:#fdfcf9}
+  .co-field input:focus{outline:none;border-color:var(--navy)}
+  .co-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .co-err{color:#c0392b;font-size:.82rem;margin-bottom:10px;display:none}
+  .co-confirm{text-align:center;padding:34px 22px}
+  .co-confirm .check{width:64px;height:64px;border-radius:50%;background:var(--ice-soft);color:var(--navy);font-size:2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .co-confirm .num{font-family:'Fraunces';font-size:1.7rem;color:var(--navy);letter-spacing:.05em;margin:6px 0 4px}
+  .co-confirm p{color:var(--muted);font-size:.9rem;margin:0 auto 18px;max-width:18rem}
+  .co-back{background:none;border:none;color:var(--navy);font-weight:600;cursor:pointer;font-size:.85rem;text-decoration:underline}
+
+  .track-input{display:flex;gap:10px;max-width:440px;margin-bottom:8px;flex-wrap:wrap}
+  .track-input input{flex:1;min-width:180px;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;font-family:'Hanken Grotesk';font-size:1rem;background:#fdfcf9;color:var(--ink);text-transform:uppercase}
+  .track-input input:focus{outline:none;border-color:var(--navy)}
+  .track-input .btn{flex:0 0 auto}
+  .track-hint{font-size:.8rem;color:var(--muted);margin-bottom:26px}
+  .track-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px clamp(16px,3vw,30px)}
+  .track-error{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:16px 18px;color:var(--muted);font-size:.92rem}
+  .track-meta{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:32px}
+  .track-meta .m .k{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
+  .track-meta .m .v{font-family:'Fraunces';color:var(--navy);font-size:1.1rem}
+  .track-meta .m .v.status{color:var(--gold)}
+  .timeline{position:relative;display:grid;grid-template-columns:repeat(5,1fr);margin-top:6px}
+  .tl-line,.tl-fill{position:absolute;top:16px;height:3px;border-radius:3px}
+  .tl-line{left:10%;right:10%;background:var(--line)}
+  .tl-fill{left:10%;background:var(--navy);transition:width .6s ease}
+  .tl-step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;position:relative;z-index:1}
+  .tl-dot{width:34px;height:34px;border-radius:50%;background:#fff;border:3px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.95rem;transition:.3s}
+  .tl-step.done .tl-dot{background:var(--navy);border-color:var(--navy);color:#fff}
+  .tl-step.current .tl-dot{background:var(--gold);border-color:var(--gold);color:#fff;box-shadow:0 0 0 5px var(--gold-soft)}
+  .tl-label{font-size:.7rem;color:var(--muted);max-width:74px;line-height:1.25}
+  .tl-step.done .tl-label,.tl-step.current .tl-label{color:var(--navy);font-weight:600}
+  @media(max-width:560px){.tl-label{font-size:.58rem;max-width:58px}.tl-dot{width:28px;height:28px}}
+
+  /* ---------- ROUTINE / STREAK ---------- */
+  .routine-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px}
+  .stat-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}
+  .stat-card .k{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .stat-card .v{font-family:'Fraunces';font-size:2.4rem;color:var(--navy);line-height:1}
+  .stat-card .v small{font-size:1rem;font-family:'Hanken Grotesk';color:var(--muted)}
+  .heat{display:grid;grid-template-columns:repeat(15,1fr);gap:6px;max-width:430px}
+  .heat i{aspect-ratio:1;border-radius:5px;background:var(--line)}
+  .heat i.on{background:var(--navy)}
+  .heat i.today{box-shadow:0 0 0 2px var(--gold)}
+  .reward{margin-top:24px;border-radius:18px;padding:24px}
+  .reward.unlocked{background:linear-gradient(150deg,#214475,#13203a);color:#fff}
+  .reward.locked{background:#fff;border:1px dashed var(--line);color:var(--ink)}
+  .reward h4{font-family:'Fraunces';font-size:1.3rem;margin-bottom:6px;color:inherit}
+  .reward p{font-size:.9rem;margin-bottom:14px;opacity:.92}
+  .reward .code{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.16);border:1px dashed rgba(255,255,255,.55);border-radius:10px;padding:10px 18px;font-family:'Fraunces';font-size:1.2rem;letter-spacing:.14em}
+  .reward.locked .pbar{height:8px;background:var(--line);border-radius:8px;overflow:hidden}
+  .reward.locked .pbar i{display:block;height:100%;background:var(--gold)}
+  .mini-link{background:none;border:none;color:var(--muted);font-size:.76rem;text-decoration:underline;cursor:pointer;padding:0;margin-top:16px}
+
+  /* ---------- REVIEWS ---------- */
+  .rev-head{display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+  .rev-avg{font-family:'Fraunces';font-size:2.8rem;color:var(--navy);line-height:1}
+  .stars{color:var(--gold);letter-spacing:2px;font-size:1.05rem}
+  .stars .off{color:var(--line)}
+  .rev-list{display:grid;gap:14px;margin-bottom:28px}
+  .review{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .review .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+  .review .nm{font-weight:600;color:var(--navy)}
+  .review .dt{font-size:.74rem;color:var(--muted)}
+  .review p{font-size:.92rem;color:var(--muted);margin-top:6px}
+  .rev-form{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+  .rev-form h4{color:var(--navy);font-size:1.15rem;margin-bottom:14px}
+  .rev-form select,.rev-form input,.rev-form textarea{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:11px;font-family:'Hanken Grotesk';font-size:.95rem;background:#fdfcf9;color:var(--ink)}
+  .rev-form textarea{margin:12px 0;min-height:74px;resize:vertical}
+  .rev-form select:focus,.rev-form input:focus,.rev-form textarea:focus{outline:none;border-color:var(--navy)}
+
+  /* ---------- SUBSCRIBE + PROMO ---------- */
+  .sub-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 18px}
+  .sub-toggle .lbl strong{display:block;color:var(--navy);font-size:.95rem}
+  .sub-toggle .lbl span{font-size:.78rem;color:var(--muted)}
+  .switch{position:relative;width:46px;height:26px;flex:0 0 auto}
+  .switch input{opacity:0;width:0;height:0}
+  .switch .sl{position:absolute;inset:0;background:var(--line);border-radius:30px;transition:.25s;cursor:pointer}
+  .switch .sl::before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s}
+  .switch input:checked + .sl{background:var(--navy)}
+  .switch input:checked + .sl::before{transform:translateX(20px)}
+  .promo{display:flex;gap:8px}
+  .promo input{flex:1;text-transform:uppercase;padding:11px 14px;border:1.5px solid var(--line);border-radius:11px;font-family:'Hanken Grotesk';font-size:.95rem;background:#fdfcf9;color:var(--ink)}
+  .promo input:focus{outline:none;border-color:var(--navy)}
+  .promo button{flex:0 0 auto;padding:0 16px;border-radius:11px;border:1.5px solid var(--navy);background:transparent;color:var(--navy);font-weight:600;cursor:pointer}
+  .promo button:hover{background:var(--navy);color:#fff}
+  .promo-msg{font-size:.8rem;margin:6px 0 0;min-height:1em}
+  .promo-msg.ok{color:#2e9e63}
+  .promo-msg.bad{color:#c0392b}
+
+  /* ---------- INGREDIENT INFO ---------- */
+  .ing-h{font-family:'Fraunces';color:var(--navy);font-size:1.3rem;margin:30px 0 8px}
+  .ing-p{color:var(--muted);max-width:48rem;margin-bottom:6px}
+  .ing-note{font-size:.76rem;color:var(--muted);opacity:.85;margin-top:18px}
+
+  /* ---------- NAV GREETING ---------- */
+  .nav-greet{font-size:.78rem;color:var(--muted);font-weight:600;margin-left:4px;white-space:nowrap}
+
+  /* ---------- CHAT WIDGET ---------- */
+  .chat-fab{position:fixed;right:18px;bottom:18px;z-index:80;width:56px;height:56px;border-radius:50%;background:#1d3e74;color:#fff;border:none;cursor:pointer;box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;transition:.25s}
+  .chat-fab:hover{transform:translateY(-2px)}
+  .chat-panel{position:fixed;right:18px;bottom:84px;z-index:81;width:min(92vw,360px);height:min(70vh,520px);background:var(--paper-card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);display:none;flex-direction:column;overflow:hidden}
+  .chat-panel.open{display:flex}
+  .chat-head{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .chat-head strong{font-family:'Fraunces';color:var(--navy);font-size:1.05rem}
+  .chat-head .x{background:none;border:none;font-size:1.4rem;line-height:1;color:var(--muted);cursor:pointer}
+  .chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:84%;padding:10px 14px;border-radius:14px;font-size:.9rem;line-height:1.45}
+  .msg.bot{background:#fff;border:1px solid var(--line);color:var(--ink);align-self:flex-start;border-bottom-left-radius:4px}
+  .msg.me{background:#2a4f8f;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .chat-quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 8px}
+  .chat-quick button{font-size:.74rem;border:1px solid var(--line);background:transparent;color:var(--navy);border-radius:100px;padding:6px 11px;cursor:pointer}
+  .chat-quick button:hover{background:var(--ice-soft)}
+  .chat-input{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+  .chat-input input{flex:1;padding:10px 14px;border:1.5px solid var(--line);border-radius:11px;background:#fdfcf9;color:var(--ink);font-family:'Hanken Grotesk';font-size:.9rem}
+  .chat-input input:focus{outline:none;border-color:var(--navy)}
+  .chat-input button{border:none;background:#2a4f8f;color:#fff;border-radius:11px;padding:0 16px;cursor:pointer}
+
+  /* ---------- PRODUCT SWITCHER ---------- */
+  .prod-switch{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:8px clamp(18px,5vw,64px) 26px}
+  .ps-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+  .ps-head h2{font-family:'Fraunces';font-size:1.7rem;color:var(--navy)}
+  .ps-tabs{display:inline-flex;gap:6px;background:var(--paper-card);border:1px solid var(--line);border-radius:100px;padding:5px}
+  .ps-tab{font-family:'Hanken Grotesk';font-weight:600;font-size:.85rem;white-space:nowrap;padding:9px 18px;border-radius:100px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:.25s}
+  .ps-tab:hover{color:var(--navy)}
+  .ps-tab.active{background:var(--navy);color:var(--paper)}
+  .ps-panel{display:none}
+  .ps-panel.active{display:block;animation:fade .4s ease}
+
+  /* ---------- PRODUCT CARD (original) ---------- */
+  .prod-card{display:flex;gap:24px;align-items:center;flex-wrap:wrap;background:linear-gradient(160deg,#13315f,#0a1b3a);color:#fff;border-radius:24px;padding:clamp(24px,4vw,38px);margin-bottom:22px}
+  .prod-info{flex:1;min-width:240px}
+  .prod-title{font-family:'Fraunces';font-size:clamp(1.6rem,4vw,2.2rem);color:#fff;margin:4px 0 10px}
+  .prod-title span{display:block;font-size:.5em;letter-spacing:.22em;text-transform:uppercase;color:#9ec7ef;font-family:'Hanken Grotesk';font-weight:600}
+  .prod-desc{color:#cdddf3;font-size:.95rem;max-width:38rem;margin-bottom:14px}
+  .prod-tags{display:flex;flex-wrap:wrap;gap:8px}
+  .prod-tags span{font-size:.72rem;letter-spacing:.04em;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:5px 12px;color:#eaf2fc}
+  .prod-buy{flex:0 0 auto;text-align:center;min-width:200px}
+  .prod-from{font-size:1.1rem;color:#fff;margin-bottom:2px}
+  .prod-from strong{font-family:'Fraunces';font-size:1.5rem;color:#e0c285}
+  .prod-note{display:block;font-size:.76rem;color:#9ec7ef;margin-bottom:14px}
+  .prod-buy .btn{background:#fff;color:#0c2452}
+  .prod-buy .btn:hover{background:#e7eefb}
+  @media(max-width:620px){.prod-buy{width:100%}}
+
+  /* ---------- AGENOVA SKIN+ (premium light) ---------- */
+  .sp-card{background:linear-gradient(180deg,#ffffff,#f3f6fa);border:1px solid #e4e8ef;border-radius:24px;padding:clamp(24px,4vw,44px);color:#16233f;box-shadow:0 30px 60px -30px rgba(20,40,80,.28);position:relative;overflow:hidden}
+  .sp-card::after{content:"";position:absolute;top:-40%;right:-10%;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,#eef2f7,transparent 70%);pointer-events:none}
+  .sp-badge{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:#7c5e22;background:linear-gradient(90deg,#f6e9c6,#e6cf95);border:1px solid #d8be84;padding:7px 14px;border-radius:100px;margin-bottom:18px}
+  .sp-title{font-family:'Fraunces';font-size:clamp(2rem,5vw,2.8rem);color:#0c2452;margin-bottom:4px;position:relative}
+  .sp-sub{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:#7d8aa3;margin-bottom:18px;position:relative}
+  .sp-headline{font-size:1.05rem;color:#3a4965;max-width:42rem;margin-bottom:30px;position:relative}
+  .sp-cols{display:grid;grid-template-columns:1fr 1fr;gap:32px;position:relative}
+  .sp-col h4{font-family:'Fraunces';color:#0c2452;font-size:1.2rem;margin-bottom:12px}
+  .sp-list{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;margin-bottom:16px}
+  .sp-list li{display:flex;align-items:center;gap:10px;color:#16233f;font-size:.95rem}
+  .sp-list li::before{content:"\2713";color:#c6a15b;font-weight:700}
+  .sp-meta{font-size:.84rem;color:#7d8aa3;margin-bottom:14px}
+  .sp-desc{font-size:.92rem;color:#3a4965;line-height:1.6}
+  .sp-plans{display:grid;gap:10px;margin-bottom:14px}
+  .sp-plan{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #e4e8ef;border-radius:14px;padding:14px 16px;position:relative}
+  .sp-plan.featured{border-color:#c6a15b;box-shadow:inset 0 0 0 1px #c6a15b}
+  .sp-plan .nm{flex:1}
+  .sp-plan .nm strong{display:block;color:#0c2452}
+  .sp-plan .nm span{font-size:.78rem;color:#7d8aa3}
+  .sp-price{font-family:'Fraunces';font-size:1.2rem;color:#0c2452}
+  .sp-btn{flex:0 0 auto;border:1.5px solid #0c2452;background:transparent;color:#0c2452;border-radius:100px;padding:8px 16px;font-weight:600;cursor:pointer;font-family:'Hanken Grotesk';transition:.2s}
+  .sp-btn:hover{background:#0c2452;color:#fff}
+  .sp-btn.primary{background:#0c2452;color:#fff}
+  .sp-btn.primary:hover{background:#163a72}
+  .sp-tag{position:absolute;top:-9px;left:16px;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#fff;background:#c6a15b;padding:4px 10px;border-radius:100px}
+  .sp-note{font-size:.74rem;color:#9aa3b8;margin-top:6px}
+  @media(max-width:760px){.sp-cols{grid-template-columns:1fr;gap:24px}}
+
+  /* ---------- MODAL ---------- */
+  .modal-scrim{position:fixed;inset:0;z-index:200;background:rgba(6,18,43,.55);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-scrim.show{display:flex}
+  .modal-card{background:var(--paper-card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);max-width:380px;width:100%;padding:30px 28px;text-align:center;animation:splashPop .4s cubic-bezier(.2,.9,.3,1.2) both}
+  .modal-card .modal-ic{width:56px;height:56px;border-radius:50%;background:var(--ice-soft);color:var(--navy);font-family:'Fraunces';font-size:1.6rem;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .modal-card h3{font-size:1.4rem;color:var(--navy);margin-bottom:10px}
+  .modal-card p{color:var(--muted);font-size:.92rem;margin-bottom:22px}
+  .modal-card .btn{width:100%}
+  .modal-no{display:block;width:100%;background:none;border:none;color:var(--muted);font-weight:600;cursor:pointer;margin-top:12px;font-size:.88rem;text-decoration:underline}
+
+  /* ---------- TOAST ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(140%);
+    z-index:90;max-width:min(92vw,420px);
+    background:var(--navy);color:#fff;border-radius:16px;padding:18px 22px;
+    box-shadow:0 24px 50px -18px rgba(0,0,0,.5);
+    border:1px solid rgba(255,255,255,.12);
+    opacity:0;transition:transform .45s cubic-bezier(.2,.9,.3,1.2),opacity .35s;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+  .toast strong{font-family:'Fraunces';display:block;font-size:1.05rem;margin-bottom:4px}
+  .toast span{font-size:.88rem;color:var(--ice)}
+  .toast .x{position:absolute;top:10px;right:14px;cursor:pointer;color:var(--ice);font-size:1.1rem;line-height:1;background:none;border:none}
+
+  /* ---------- DARK MODE ---------- */
+  @media (prefers-color-scheme: dark){
+    :root{
+      --navy:#9bb8f0;        /* soft periwinkle accent for headings/text */
+      --navy-mid:#6f9be6;
+      --navy-deep:#0c111d;
+      --ice:#aac6f0;
+      --ice-soft:#1e2740;
+      --paper:#0c111d;       /* deep slate page */
+      --paper-card:#151b29;
+      --ink:#eef1f7;
+      --muted:#9aa3b8;
+      --line:#2a3346;
+      --gold:#e0c285;
+      --gold-soft:#f0ddb0;
+      --shadow:0 30px 60px -25px rgba(0,0,0,.7);
+      --shadow-sm:0 10px 30px -15px rgba(0,0,0,.6);
+    }
+    html{color-scheme:dark}
+    body::before{mix-blend-mode:overlay;opacity:.12}
+    ::selection{background:var(--gold-soft);color:#0c111d}
+
+    nav{background:rgba(12,17,29,.85)}
+    .tabs{background:#111623}
+    .dash-head{background:linear-gradient(180deg,#1a2233,#151b29)}
+    .card,.step,.tracker .controls,.faq details,.plan,.menu-btn,.essential,.basket-btn,.bk-item,.track-card,.track-error,.stat-card,.review,.rev-form,.sub-toggle,.reward.locked,.msg.bot{background:#1a2233}
+    .plan.feat{background:linear-gradient(170deg,#202a40,#171f2f)}
+    .field input,.field select,.co-field input,.track-input input,.rev-form select,.rev-form input,.rev-form textarea,.promo input,.chat-input input{background:#10151f;color:var(--ink);border-color:#2c374d}
+    .bk-qty button{background:#10151f;color:var(--navy);border-color:#2c374d}
+
+    /* filled accent surfaces keep light text */
+    .btn-primary,.nav-cta{background:#3b62b0;color:#f2f6ff}
+    .btn-primary:hover,.nav-cta:hover{background:#4a73c4}
+    .btn-ghost{color:var(--navy);border-color:var(--navy)}
+    .btn-ghost:hover{background:#3b62b0;color:#fff;border-color:#3b62b0}
+    .tab.active{background:#3b62b0;color:#fff}
+    .tab:hover{background:#1e2740;color:#cfe0fb}
+    .fact{background:linear-gradient(160deg,#284571,#172439)}
+    .readout{background:linear-gradient(165deg,#284571,#141d2e)}
+    .step::before{background:#3b62b0;color:#fff}
+    .card .ic{background:#212c42;color:#bcd0f4}
+    .plan .tag{color:#2a1e06}        /* dark text on the gold badge */
+
+    /* bottle label stays true dark-blue on its white sticker */
+    .bottle .label .lname,.bottle .label .lbottom,.bottle .label .lcount{color:#0c2452}
+    .bottle .label .lname sup{color:var(--gold)}
+  }
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <div class="splash-logo">A</div>
+  <div class="splash-word">Agenova<sup>™</sup></div>
+  <div class="splash-tag">The key to youth</div>
+</div>
+
+<nav>
+  <div class="nav-left">
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="brand"><span class="dot"></span>Agenova<sup>™</sup></div>
+    <span id="navGreet" class="nav-greet" style="display:none"></span>
+  </div>
+  <button class="basket-btn" id="basketBtn" aria-label="Open basket" onclick="openBasket()">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M2.5 3.5h2l2 11a1.4 1.4 0 0 0 1.4 1.1h7.6a1.4 1.4 0 0 0 1.4-1.1L19.5 6H5"/></svg>
+    <span class="count" id="basketCount" hidden>0</span>
+  </button>
+</nav>
+
+<div class="scrim" id="scrim" onclick="closeMenu()"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="brand"><span class="dot"></span>Agenova<sup>™</sup></div>
+    <button class="x" aria-label="Close menu" onclick="closeMenu()">&times;</button>
+  </div>
+  <div class="drawer-nav">
+    <p class="drawer-label">Information</p>
+    <button onclick="goTab('overview')">Overview</button>
+    <button onclick="goTab('ingredients')">Ingredients</button>
+    <button onclick="goTab('howto')">How to Use</button>
+    <button onclick="goTab('routine')">My Routine</button>
+    <button onclick="goTab('pricing')">Pricing &amp; Plans</button>
+    <button onclick="closeMenu();document.getElementById('productSwitch').scrollIntoView({behavior:'smooth'})">Our Products</button>
+    <button onclick="goTab('tracker')">Supply Tracker</button>
+    <button onclick="goTab('track')">Track Order</button>
+    <button onclick="goTab('reviews')">Reviews</button>
+    <button onclick="goTab('faq')">FAQ</button>
+    <button onclick="goTab('account')">Account</button>
+
+    <p class="drawer-label">Essentials</p>
+    <div class="essential"><span>Daily dose</span><strong>2 capsules</strong></div>
+    <div class="essential"><span>Per bottle</span><strong>120 capsules</strong></div>
+    <div class="essential"><span>1-month starter</span><strong>£22.99</strong></div>
+    <div class="essential"><span>2-month supply</span><strong>£39.99</strong></div>
+    <div class="essential"><span>6-month bundle</span><strong>£79.99</strong></div>
+    <div class="essential"><span>Full-year bundle <em style="color:var(--gold);font-style:normal;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase">· Best value</em></span><strong>£139.99</strong></div>
+    <button onclick="goTab('pricing')">Order now &rarr;</button>
+    <button onclick="scrollFooter()">Safety &amp; disclaimer</button>
+  </div>
+</aside>
+
+<div class="scrim" id="basketScrim" onclick="closeBasket()"></div>
+<aside class="drawer right" id="basket" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="brand"><span class="dot"></span>Basket</div>
+    <button class="x" aria-label="Close basket" onclick="closeBasket()">&times;</button>
+  </div>
+
+  <div id="bkView">
+    <div class="basket-body" id="basketItems"></div>
+    <div class="sub-toggle" id="subRow">
+      <div class="lbl"><strong>Subscribe &amp; Save</strong><span>10% off, delivered automatically. Cancel anytime.</span></div>
+      <label class="switch"><input type="checkbox" id="subToggle" onchange="toggleSubscribe()"><span class="sl"></span></label>
+    </div>
+    <div class="basket-foot">
+      <button class="btn btn-primary" id="checkoutBtn" onclick="gotoCheckout()">Checkout</button>
+    </div>
+  </div>
+
+  <div id="coView" style="display:none">
+    <div class="basket-body">
+      <p class="co-err" id="coErr">Please add your name, email and address.</p>
+      <div class="co-field"><label>Full name</label><input id="coName" placeholder="Jordan Smith"></div>
+      <div class="co-field"><label>Email</label><input id="coEmail" placeholder="you@email.com"></div>
+      <div class="co-field"><label>Address</label><input id="coAddr" placeholder="12 Rowan Street"></div>
+      <div class="co-row">
+        <div class="co-field"><label>City</label><input id="coCity" placeholder="London"></div>
+        <div class="co-field"><label>Postcode</label><input id="coPost" placeholder="SW1A 1AA"></div>
+      </div>
+      <p style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--navy);margin:10px 0 10px">Payment</p>
+      <div class="co-field"><label>Name on card</label><input id="coCardName" placeholder="Jordan Smith"></div>
+      <div class="co-field"><label>Card number</label><input id="coCardNum" inputmode="numeric" placeholder="1234 5678 9012 3456"></div>
+      <div class="co-row">
+        <div class="co-field"><label>Expiry (MM/YY)</label><input id="coCardExp" placeholder="08/28"></div>
+        <div class="co-field"><label>CVC</label><input id="coCardCvc" inputmode="numeric" placeholder="123"></div>
+      </div>
+      <div class="bk-summary" id="coSummary"></div>
+    </div>
+    <div class="basket-foot">
+      <button class="btn btn-primary" id="payBtn" onclick="placeOrder()">Pay</button>
+      <div style="text-align:center;margin-top:14px"><button class="co-back" onclick="backToBasket()">&larr; Back to basket</button></div>
+    </div>
+  </div>
+
+  <div id="confView" style="display:none">
+    <div class="co-confirm">
+      <div class="check">&#10003;</div>
+      <h3 style="color:var(--navy)">Order placed</h3>
+      <div class="num" id="confNum">AGN-000000</div>
+      <p>Keep this number safe, you'll need it to track your parcel.</p>
+      <button class="btn btn-primary" style="width:auto" onclick="trackFromConfirm()">Track this order</button>
+      <div style="margin-top:14px"><button class="co-back" onclick="closeBasket()">Continue browsing</button></div>
+    </div>
+  </div>
+</aside>
+
+<div class="modal-scrim" id="subModal">
+  <div class="modal-card">
+    <div class="modal-ic">%</div>
+    <h3>Save 10% with a subscription</h3>
+    <p>Get your full-year supply delivered automatically and save 10% on this order. You can cancel anytime.</p>
+    <button class="btn btn-primary" onclick="acceptSub()">Yes, subscribe &amp; save 10%</button>
+    <button class="modal-no" onclick="closeSubPrompt()">No thanks, one-time order</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div>
+    <span class="eyebrow">Daily Skin &amp; Vitality Formula</span>
+    <h1>Radiance,<br>made <em>routine.</em></h1>
+    <p class="lede">Agenova™ brings together five skin-loving nutrients in one dark-blue-and-white capsule (vitamins C, E &amp; D, zinc, omega-3 and collagen peptides) to complement a healthy lifestyle, every single day.</p>
+    <div class="hero-actions">
+      <a href="#dashboard" class="btn btn-primary">Explore the dashboard</a>
+      <a href="#pricing" class="btn btn-ghost" onclick="openTab('pricing')">View plans</a>
+    </div>
+    <div class="hero-stats">
+      <div class="s"><strong>120</strong><span>capsules per bottle</span></div>
+      <div class="s"><strong>2 / day</strong><span>simple daily dose</span></div>
+      <div class="s"><strong>5</strong><span>active ingredients</span></div>
+    </div>
+  </div>
+
+    <div class="product-stage">
+    <div class="glow"></div>
+    <div class="bottle">
+      <div class="cap"></div>
+      <div class="label">
+        <div class="lname">Agenova<sup>™</sup></div>
+        <div class="lsub">Skin &amp; Vitality</div>
+        <div class="ldiv"></div>
+        <div class="lbottom">Take Two Daily</div>
+        <div class="lcount">120 Capsules</div>
+      </div>
+    </div>
+    <div class="pill">
+      <span class="half left"></span>
+      <span class="half right"></span>
+    </div>
+  </div>
+</header>
+
+<!-- DASHBOARD -->
+<!-- PRODUCT SWITCHER -->
+<section class="prod-switch" id="productSwitch">
+  <div class="ps-head">
+    <h2>Our products</h2>
+    <div class="ps-tabs">
+      <button class="ps-tab active" onclick="showProduct('agenova',this)">Agenova</button>
+      <button class="ps-tab" onclick="showProduct('skinplus',this)">Agenova Skin+</button>
+    </div>
+  </div>
+
+  <div class="ps-panel active" id="ps-agenova">
+    <div class="prod-card">
+      <div class="prod-info">
+        <div class="role" style="color:var(--gold)">Daily Skin &amp; Vitality Formula</div>
+        <h3 class="prod-title">Agenova <span>Skin &amp; Vitality</span></h3>
+        <p class="prod-desc">Our original five-active daily capsule: vitamins C, E &amp; D, zinc, omega-3 and collagen peptides to support the skin's normal maintenance and complement a healthy lifestyle. 120 capsules, two a day.</p>
+        <div class="prod-tags"><span>Vitamin C</span><span>Vitamin E</span><span>Vitamin D</span><span>Zinc</span><span>Omega-3</span><span>Collagen</span></div>
+      </div>
+      <div class="prod-buy">
+        <div class="prod-from">Plans from <strong>£22.99</strong></div>
+        <span class="prod-note">1-month starter up to the £139.99 full-year bundle</span>
+        <button class="btn btn-primary" onclick="openTab('pricing')">View plans &amp; buy</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-panel" id="ps-skinplus">
+    <div class="sp-card">
+      <span class="sp-badge">★ Premium Formula</span>
+      <h3 class="sp-title">Agenova Skin+</h3>
+      <p class="sp-sub">Daily Skin Health &amp; Collagen Support</p>
+      <p class="sp-headline">Science-inspired daily nutrition to support healthy skin, collagen formation, and overall wellbeing.</p>
+      <div class="sp-cols">
+        <div class="sp-col">
+          <h4>What's inside</h4>
+          <ul class="sp-list">
+            <li>Vitamin C</li>
+            <li>Vitamin E</li>
+            <li>Zinc</li>
+            <li>Biotin</li>
+            <li>Selenium</li>
+            <li>Collagen Peptides</li>
+            <li>Hyaluronic Acid</li>
+            <li>CoQ10</li>
+            <li>Astaxanthin</li>
+          </ul>
+          <p class="sp-meta">60 capsules · 2-month supply · take 1 capsule daily with water</p>
+          <p class="sp-desc">Agenova Skin+ is a daily food supplement combining vitamins, minerals, collagen peptides and skin-loving actives like hyaluronic acid, CoQ10 and astaxanthin to support healthy skin and normal collagen formation.</p>
+        </div>
+        <div class="sp-col">
+          <h4>Choose your supply</h4>
+          <div class="sp-plans">
+            <div class="sp-plan">
+              <div class="nm"><strong>Single bottle</strong><span>60 capsules · 2 months</span></div>
+              <div class="sp-price">£24.99</div>
+              <button class="sp-btn" onclick="order('skin1')">Add</button>
+            </div>
+            <div class="sp-plan">
+              <div class="nm"><strong>3 bottles</strong><span>180 capsules · 6 months</span></div>
+              <div class="sp-price">£64.99</div>
+              <button class="sp-btn" onclick="order('skin3')">Add</button>
+            </div>
+            <div class="sp-plan featured">
+              <span class="sp-tag">Best value</span>
+              <div class="nm"><strong>6 bottles</strong><span>360 capsules · 12 months</span></div>
+              <div class="sp-price">£119.99</div>
+              <button class="sp-btn primary" onclick="order('skin6')">Add</button>
+            </div>
+          </div>
+          <p class="sp-note">Food supplement. Not intended to diagnose, treat, cure or prevent any disease. Do not exceed the recommended daily dose.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dash-wrap" id="dashboard">
+  <div class="dash">
+    <div class="dash-head">
+      <h2>Agenova™ Information</h2>
+      <div class="live"><span class="blip"></span>Everything you need, one place</div>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" onclick="openTab('overview',this)">Overview</button>
+      <button class="tab" onclick="openTab('ingredients',this)">Ingredients</button>
+      <button class="tab" onclick="openTab('howto',this)">How to Use</button>
+      <button class="tab" onclick="openTab('routine',this)">My Routine</button>
+      <button class="tab" onclick="openTab('pricing',this)">Pricing &amp; Plans</button>
+      <button class="tab" onclick="openTab('tracker',this)">Supply Tracker</button>
+      <button class="tab" onclick="openTab('track',this)">Track Order</button>
+      <button class="tab" onclick="openTab('reviews',this)">Reviews</button>
+      <button class="tab" onclick="openTab('faq',this)">FAQ</button>
+      <button class="tab" onclick="openTab('account',this)">Account</button>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="panel active" id="overview">
+      <h3>At a glance</h3>
+      <p class="sub">A single daily ritual designed around your skin. Here are the numbers that matter.</p>
+      <div class="facts">
+        <div class="fact"><strong>120</strong><span>capsules in every bottle</span></div>
+        <div class="fact"><strong>60</strong><span>days per bottle (2/day)</span></div>
+        <div class="fact"><strong>£39.99</strong><span>2-month supply</span></div>
+        <div class="fact"><strong>£139.99</strong><span>full-year bundle</span></div>
+      </div>
+      <div class="grid g3">
+        <div class="card"><div class="ic">◇</div><h4>Skin maintenance</h4><p>Zinc and vitamins C &amp; E support the body's normal skin upkeep as part of your daily routine.</p></div>
+        <div class="card"><div class="ic">◷</div><h4>Made for habit</h4><p>Two capsules a day, no powders, no fuss. One white-and-blue bottle lasts two months.</p></div>
+        <div class="card"><div class="ic">✶</div><h4>Lifestyle complement</h4><p>Collagen peptides and omega-3 round out a balanced diet and an active, healthy lifestyle.</p></div>
+      </div>
+    </div>
+
+    <!-- INGREDIENTS -->
+    <div class="panel" id="ingredients">
+      <h3>What's inside</h3>
+      <p class="sub">Each dark-blue-and-white capsule combines five carefully chosen actives. Two capsules deliver the full daily blend.</p>
+      <div class="grid g3">
+        <div class="card"><div class="role">Antioxidant vitamin</div><h4>Vitamin C</h4><p>A familiar everyday antioxidant that contributes to normal collagen formation for skin.</p></div>
+        <div class="card"><div class="role">Antioxidant vitamin</div><h4>Vitamin E</h4><p>Helps protect cells from oxidative stress as part of a balanced daily intake.</p></div>
+        <div class="card"><div class="role">Sunshine vitamin</div><h4>Vitamin D</h4><p>Supports your everyday baseline, especially helpful through darker months.</p></div>
+        <div class="card"><div class="role">Mineral</div><h4>Zinc</h4><p>Included specifically to help with the maintenance of normal skin.</p></div>
+        <div class="card"><div class="role">Essential fats</div><h4>Omega-3 fatty acids</h4><p>Added to support overall skin health alongside a varied diet.</p></div>
+        <div class="card"><div class="role">Protein peptides</div><h4>Collagen peptides</h4><p>Chosen to complement a healthy lifestyle and your everyday wellness routine.</p></div>
+      </div>
+
+      <h4 class="ing-h">What Agenova does</h4>
+      <p class="ing-p">Agenova is a daily <strong>food supplement</strong>, not a medicine. Rather than treating anything, it tops up nutrients your skin draws on every day: vitamin C contributes to normal collagen formation, vitamins C and E help protect cells from oxidative stress, zinc supports the maintenance of normal skin, and the added omega-3 and collagen peptides round out a skin-focused routine, alongside a balanced diet.</p>
+
+      <div class="grid g3" style="margin-top:18px">
+        <div class="card"><div class="role">Everyday skin</div><h4>Maintenance</h4><p>Supports the skin's normal upkeep as part of a consistent daily habit.</p></div>
+        <div class="card"><div class="role">From your diet</div><h4>Food-based top-up</h4><p>A convenient way to top up skin-supporting nutrients you'd aim to get from food.</p></div>
+        <div class="card"><div class="role">Routine fit</div><h4>Easy to keep up</h4><p>Two capsules a day slots into any morning or evening routine.</p></div>
+      </div>
+
+      <h4 class="ing-h">How it helps your skin</h4>
+      <p class="ing-p">Skin renews itself constantly, and that process leans on specific nutrients. Agenova focuses on the ones tied to skin structure, protection and everyday upkeep:</p>
+      <div class="grid g3" style="margin-top:18px">
+        <div class="card"><div class="role">Structure</div><h4>Collagen support</h4><p>Vitamin C contributes to normal collagen formation, the protein that helps keep skin firm and supple.</p></div>
+        <div class="card"><div class="role">Protection</div><h4>Antioxidant defence</h4><p>Vitamins C and E help protect skin cells from the everyday oxidative stress they're exposed to.</p></div>
+        <div class="card"><div class="role">Upkeep</div><h4>Skin maintenance</h4><p>Zinc supports the maintenance of normal, healthy skin, day after day.</p></div>
+        <div class="card"><div class="role">Nourishment</div><h4>Fed from within</h4><p>Omega-3 supports overall skin health while collagen peptides round out a skin-focused routine, complementing the creams and serums you apply on top.</p></div>
+      </div>
+
+      <h4 class="ing-h">Alongside treatments like Botox</h4>
+      <p class="ing-p">Many people pair good skin nutrition with aesthetic treatments such as Botox or fillers. Agenova is designed to sit comfortably within that wider skincare routine, supporting your skin from the inside while you look after it from the outside. It is not a medical treatment, doesn't replace anything your practitioner provides, and makes no claim to change the outcome of any procedure, so always follow your clinician's advice.</p>
+
+      <p class="ing-note">Food supplement. Not intended to diagnose, treat, cure or prevent any disease. Do not exceed two capsules a day.</p>
+    </div>
+
+    <!-- HOW TO USE -->
+    <div class="panel" id="howto">
+      <h3>How to use Agenova™</h3>
+      <p class="sub">A 30-second daily habit. Consistency is what makes a supplement routine worthwhile.</p>
+      <div class="steps">
+        <div class="step"><div><h4>Take two capsules daily</h4><p>The standard serving is 2 capsules per day, together or split between morning and evening.</p></div></div>
+        <div class="step"><div><h4>Pair with food &amp; water</h4><p>Take with a meal and a full glass of water. The omega-3 and fat-soluble vitamins (D &amp; E) absorb best alongside food.</p></div></div>
+        <div class="step"><div><h4>Pick a consistent time</h4><p>Anchor it to an existing habit (breakfast or your evening wind-down) so you never miss a day.</p></div></div>
+        <div class="step"><div><h4>Store cool &amp; sealed</h4><p>Keep the bottle tightly closed in a cool, dry place, out of reach of children.</p></div></div>
+        <div class="step"><div><h4>Reorder before you run out</h4><p>One 120-capsule bottle lasts ~60 days. Use the Supply Tracker tab to know exactly when to reorder.</p></div></div>
+      </div>
+    </div>
+
+    <!-- MY ROUTINE -->
+    <div class="panel" id="routine">
+      <h3>My routine</h3>
+      <p class="sub">Tick off your two capsules each day, build a streak, and earn a loyalty reward for staying consistent.</p>
+      <div class="routine-grid">
+        <div class="stat-card"><div class="k">Current streak</div><div class="v" id="rStreak">0<small> days</small></div></div>
+        <div class="stat-card"><div class="k">Days logged</div><div class="v" id="rTotal">0<small> total</small></div></div>
+      </div>
+      <button class="btn btn-primary" id="doseBtn" onclick="logToday()">Mark today's dose as taken</button>
+      <div style="margin-top:26px">
+        <div style="font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Last 30 days</div>
+        <div class="heat" id="heat"></div>
+      </div>
+      <div id="rewardBox"></div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="panel" id="pricing">
+      <h3>Choose your supply</h3>
+      <p class="sub">Every plan delivers the same 120-capsule bottles. The annual bundle is the best value per day.</p>
+      <div class="plans">
+        <div class="plan">
+          <span class="tag flex">Starter</span>
+          <h4>1-Month Starter</h4>
+          <div class="price">£22.99</div>
+          <div class="per">≈ £0.77 per day · + £4 shipping</div>
+          <div class="percap">≈ £0.38 per capsule</div>
+          <ul>
+            <li>One small bottle, 60 capsules</li>
+            <li>Lasts ~30 days at 2/day</li>
+            <li>A low-commitment way to try Agenova</li>
+            <li>£4 flat-rate shipping</li>
+          </ul>
+          <button type="button" class="btn btn-ghost" onclick="order('month')">Try for one month</button>
+        </div>
+        <div class="plan">
+          <span class="tag flex">Flexible</span>
+          <h4>2-Month Supply</h4>
+          <div class="price">£39.99</div>
+          <div class="per">≈ £0.67 per day · + £4 shipping</div>
+          <div class="percap">≈ £0.33 per capsule</div>
+          <ul>
+            <li>One bottle, 120 capsules</li>
+            <li>Lasts ~60 days at 2/day</li>
+            <li>£4 flat-rate shipping</li>
+            <li>Order again whenever you like</li>
+          </ul>
+          <button type="button" class="btn btn-ghost" onclick="order('single')">Order single bottle</button>
+        </div>
+        <div class="plan">
+          <span class="tag save">Save £39.98</span>
+          <h4>6-Month Bundle</h4>
+          <div class="price">£79.99</div>
+          <div class="per">≈ £0.44 per day · free shipping</div>
+          <div class="percap">≈ £0.22 per capsule</div>
+          <ul>
+            <li>Three bottles, 360 capsules total</li>
+            <li>A full 6 months at 2/day</li>
+            <li>Save £39.98 vs three single bottles</li>
+            <li>Free standard shipping</li>
+          </ul>
+          <button type="button" class="btn btn-ghost" onclick="order('half')">Get the 6-month bundle</button>
+        </div>
+        <div class="plan feat">
+          <span class="tag">★ Best Value*</span>
+          <h4>Full-Year Bundle</h4>
+          <div class="price">£139.99</div>
+          <div class="per">≈ £0.39 per day · free shipping</div>
+          <div class="percap">≈ £0.19 per capsule</div>
+          <ul>
+            <li>Six bottles, 720 capsules total</li>
+            <li>A full 12 months at 2/day</li>
+            <li>Save £99.95 vs six single bottles</li>
+            <li>Free priority shipping</li>
+          </ul>
+          <button type="button" class="btn btn-primary" onclick="order('year')">Get the year bundle</button>
+          <p class="plan-note"><span class="star">*</span>Best value based on the lowest price per capsule (≈ £0.19). Saving shown versus six 2-month bottles at £39.99 each.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRACKER -->
+    <div class="panel" id="tracker">
+      <h3>Supply tracker</h3>
+      <p class="sub">Tell us how many capsules you have left and we'll estimate how long they'll last, plus when to reorder.</p>
+      <div class="tracker">
+        <div class="controls">
+          <div class="field">
+            <label for="pills">Capsules remaining</label>
+            <input type="number" id="pills" value="120" min="0" max="2000" oninput="calc()">
+          </div>
+          <div class="field">
+            <label for="dose">Capsules per day</label>
+            <select id="dose" onchange="calc()">
+              <option value="2" selected>2 (recommended)</option>
+              <option value="1">1</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </div>
+        <div class="readout">
+          <div><div class="big" id="days">60<small> days left</small></div></div>
+          <div class="bar"><i id="bar" style="width:100%"></i></div>
+          <div class="row"><span>Bottles remaining</span><span id="bottles">1.0</span></div>
+          <div class="row"><span>Runs out around</span><span id="runout">-</span></div>
+          <div class="reorder" id="reorder">Reorder before you run low.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRACK ORDER -->
+    <div class="panel" id="track">
+      <h3>Track your parcel</h3>
+      <p class="sub">Enter the order number from your confirmation to see exactly where your Agenova™ is.</p>
+      <div class="track-input">
+        <input id="trackNum" placeholder="AGN-123456" onkeydown="if(event.key==='Enter')track()">
+        <button class="btn btn-primary" onclick="track()">Track</button>
+      </div>
+      <p class="track-hint">Tip: place an order in the basket to generate a real, trackable number, or try any code like AGN-204815.</p>
+      <div id="trackResult"></div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="panel" id="reviews">
+      <h3>What customers say</h3>
+      <p class="sub">Impressions from people taking Agenova™ as part of their daily routine.</p>
+      <div class="rev-head">
+        <div class="rev-avg" id="revAvg">0.0</div>
+        <div><div class="stars" id="revStars"></div><div style="font-size:.8rem;color:var(--muted);margin-top:2px" id="revCount">0 reviews</div></div>
+      </div>
+      <div class="rev-list" id="revList"></div>
+      <div class="rev-form">
+        <h4>Leave a review</h4>
+        <div class="co-row" style="grid-template-columns:1fr 132px">
+          <input id="rvName" placeholder="Your name">
+          <select id="rvRating">
+            <option value="5">★★★★★</option>
+            <option value="4">★★★★</option>
+            <option value="3">★★★</option>
+            <option value="2">★★</option>
+            <option value="1">★</option>
+          </select>
+        </div>
+        <textarea id="rvText" placeholder="How has Agenova™ been for you?"></textarea>
+        <button class="btn btn-primary" onclick="addReview()">Post review</button>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="panel" id="faq">
+      <h3>Questions, answered</h3>
+      <p class="sub">The essentials before you start.</p>
+      <div class="faq">
+        <details open><summary>How many should I take and when?</summary><p>Two capsules per day, ideally with a meal and water. You can take both at once or split them across the day.</p></details>
+        <details><summary>How long does one bottle last?</summary><p>Each bottle holds 120 capsules. At the recommended 2 per day, that's roughly 60 days, about two months.</p></details>
+        <details><summary>What's the difference between the plans?</summary><p>The 1-month starter is a small 60-capsule bottle (£22.99 plus £4 shipping) to try Agenova. The 2-month supply is a full 120-capsule bottle at £39.99 plus £4 shipping. The 6-month and full-year bundles ship free, and the full-year (£139.99) is the best value per capsule.</p></details>
+        <details><summary>What does each capsule contain?</summary><p>Vitamins C, E and D, plus zinc for skin maintenance, omega-3 fatty acids for skin health, and collagen peptides to complement a healthy lifestyle.</p></details>
+        <details><summary>Can I take it with other supplements?</summary><p>Agenova™ is a food supplement, not a substitute for a varied diet. If you take medication, are pregnant or breastfeeding, or have a health condition, speak to your doctor or pharmacist first.</p></details>
+      </div>
+    </div>
+
+    <!-- ACCOUNT -->
+    <div class="panel" id="account">
+      <h3>Your account</h3>
+      <p class="sub">Create an account to save your name and keep your routine, basket and rewards tied to you on this device.</p>
+      <div id="accountView"></div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="ftop">
+    <div class="brand"><span class="dot" style="background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.15)"></span>Agenova<sup style="color:var(--gold)">™</sup></div>
+    <div style="font-size:.85rem;max-width:24rem">Radiance, made routine. A daily skin &amp; vitality food supplement.</div>
+  </div>
+  <p class="disclaimer">
+    † Food supplement. Agenova™ is not a substitute for a varied, balanced diet and a healthy lifestyle, and is not intended to diagnose, treat, cure or prevent any disease. Do not exceed the recommended daily dose of two capsules. Keep out of the reach of young children. Consult your doctor or pharmacist before use if you are pregnant, breastfeeding, taking medication or under medical supervision.
+  </p>
+  <p class="copy">© <span id="yr"></span> Agenova™. All rights reserved.</p>
+</footer>
+
+<button class="chat-fab" id="chatFab" onclick="toggleChat()" aria-label="Open help chat">
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
+</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head"><strong>Agenova Help</strong><button class="x" aria-label="Close" onclick="toggleChat()">&times;</button></div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick">
+    <button onclick="chatQuick('How do I take it?')">How to take</button>
+    <button onclick="chatQuick('What are the ingredients?')">Ingredients</button>
+    <button onclick="chatQuick('How much does it cost?')">Pricing</button>
+    <button onclick="chatQuick('How do I track my order?')">Track order</button>
+  </div>
+  <div class="chat-input"><input id="chatInput" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')chatSend()"><button onclick="chatSend()">Send</button></div>
+</div>
+
+<div id="toast" class="toast"><button class="x" onclick="hideToast()">×</button><strong id="toastTitle"></strong><span id="toastMsg"></span></div>
+
+<script>
+  function toggleMenu(){
+    const d=document.getElementById('drawer');
+    const open=d.classList.toggle('open');
+    document.getElementById('scrim').classList.toggle('show',open);
+    document.getElementById('menuBtn').classList.toggle('open',open);
+    d.setAttribute('aria-hidden',open?'false':'true');
+  }
+  function closeMenu(){
+    document.getElementById('drawer').classList.remove('open');
+    document.getElementById('scrim').classList.remove('show');
+    document.getElementById('menuBtn').classList.remove('open');
+    document.getElementById('drawer').setAttribute('aria-hidden','true');
+  }
+  function goTab(id){ openTab(id); closeMenu(); }
+  function scrollFooter(){ closeMenu(); document.querySelector('footer').scrollIntoView({behavior:'smooth'}); }
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeMenu(); closeBasket(); } });
+
+  let toastTimer;
+  function showToast(title,msg){
+    document.getElementById('toastTitle').textContent=title;
+    document.getElementById('toastMsg').textContent=msg;
+    const t=document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(hideToast,5000);
+  }
+  function hideToast(){document.getElementById('toast').classList.remove('show');}
+
+  /* ---------- BASKET ---------- */
+  const PLANS={
+    month:{name:'1-Month Starter', price:22.99, caps:60},
+    single:{name:'2-Month Supply', price:39.99, caps:120},
+    half:{name:'6-Month Bundle', price:79.99, caps:360},
+    year:{name:'Full-Year Bundle', price:139.99, caps:720},
+    skin1:{name:'Agenova Skin+ (1 bottle)', price:24.99, caps:60},
+    skin3:{name:'Agenova Skin+ (3 bottles)', price:64.99, caps:180},
+    skin6:{name:'Agenova Skin+ (6 bottles)', price:119.99, caps:360}
+  };
+  let basket=[];          // {key, qty}
+  const orders={};        // num -> {placedAt, total, name, items}
+  let lastOrder='';
+
+  // ---- persistence (survives reloads) ----
+  const STORE_KEY='agenova_basket';
+  async function persistBasket(){
+    const data=JSON.stringify(basket);
+    try{ if(window.storage && window.storage.set){ await window.storage.set(STORE_KEY, data, false); return; } }catch(e){}
+    try{ localStorage.setItem(STORE_KEY, data); }catch(e){}
+  }
+  async function restoreBasket(){
+    let raw=null;
+    try{ if(window.storage && window.storage.get){ const r=await window.storage.get(STORE_KEY, false); if(r && r.value!=null) raw=r.value; } }catch(e){}
+    if(raw===null){ try{ raw=localStorage.getItem(STORE_KEY); }catch(e){} }
+    if(raw){
+      try{
+        const arr=JSON.parse(raw);
+        if(Array.isArray(arr)) basket=arr.filter(b=>b && PLANS[b.key] && b.qty>0).map(b=>({key:b.key, qty:Math.floor(b.qty)}));
+      }catch(e){}
+    }
+    updateBadge(); renderBasket();
+  }
+
+  function order(plan){ addToBasket(plan); }
+  function addToBasket(key){
+    const found=basket.find(b=>b.key===key);
+    if(found) found.qty++; else basket.push({key,qty:1});
+    updateBadge(); persistBasket();
+    showToast('Added to basket', PLANS[key].name+' · £'+PLANS[key].price.toFixed(2));
+    openBasket();
+    if(key==='year' && !subscribe) setTimeout(openSubPrompt, 450);
+  }
+  function openSubPrompt(){ document.getElementById('subModal').classList.add('show'); }
+  function closeSubPrompt(){ document.getElementById('subModal').classList.remove('show'); }
+  function acceptSub(){
+    subscribe=true;
+    const st=document.getElementById('subToggle'); if(st) st.checked=true;
+    renderBasket(); closeSubPrompt();
+    showToast('Subscribe & Save on','10% off your yearly supply, delivered automatically.');
+  }
+  function updateBadge(){
+    const n=basket.reduce((s,b)=>s+b.qty,0);
+    const el=document.getElementById('basketCount');
+    el.textContent=n; el.hidden = n===0;
+  }
+  function basketTotal(){ return basket.reduce((s,b)=>s+PLANS[b.key].price*b.qty,0); }
+  function shippingFee(){ return basket.some(b=>b.key==='month'||b.key==='single'||b.key==='skin1') ? 4 : 0; }   // £4 on single-bottle tiers; bundles ship free
+
+  let subscribe=false, promoApplied=false;
+  function summaryRows(includePromo){
+    const subtotal=basketTotal(), ship=shippingFee();
+    const sub = subscribe ? subtotal*0.10 : 0;
+    const pro = (includePromo && promoApplied) ? subtotal*0.15 : 0;
+    const total = Math.max(0, subtotal - sub - pro) + ship;
+    let h='<div class="row"><span>Subtotal</span><span>£'+subtotal.toFixed(2)+'</span></div>';
+    if(sub>0) h+='<div class="row"><span>Subscribe &amp; Save (−10%)</span><span>−£'+sub.toFixed(2)+'</span></div>';
+    if(pro>0) h+='<div class="row"><span>Loyalty reward (−15%)</span><span>−£'+pro.toFixed(2)+'</span></div>';
+    h+='<div class="row"><span>Shipping</span><span>'+(ship>0?'£'+ship.toFixed(2):'Free')+'</span></div>';
+    h+='<div class="row total"><span>Total'+(includePromo?' due':'')+'</span><span>£'+total.toFixed(2)+'</span></div>';
+    return h;
+  }
+  function orderGrandTotal(){
+    const subtotal=basketTotal(), ship=shippingFee();
+    const sub = subscribe ? subtotal*0.10 : 0;
+    const pro = promoApplied ? subtotal*0.15 : 0;
+    return Math.max(0, subtotal - sub - pro) + ship;
+  }
+  function toggleSubscribe(){ subscribe=document.getElementById('subToggle').checked; renderBasket(); }
+
+  function changeQty(key,d){
+    const it=basket.find(b=>b.key===key); if(!it) return;
+    it.qty+=d; if(it.qty<=0) basket=basket.filter(b=>b.key!==key);
+    updateBadge(); renderBasket(); persistBasket();
+  }
+  function removeItem(key){ basket=basket.filter(b=>b.key!==key); updateBadge(); renderBasket(); persistBasket(); }
+  function renderBasket(){
+    const wrap=document.getElementById('basketItems');
+    const btn=document.getElementById('checkoutBtn');
+    if(basket.length===0){
+      wrap.innerHTML='<div class="bk-empty">Your basket is empty.<br>Add a plan from the Pricing tab.</div>';
+      document.getElementById('subRow').style.display='none';
+      btn.disabled=true; btn.style.opacity=.45; btn.style.pointerEvents='none'; return;
+    }
+    btn.disabled=false; btn.style.opacity=1; btn.style.pointerEvents='auto';
+    let html='';
+    basket.forEach(b=>{
+      const p=PLANS[b.key];
+      html+='<div class="bk-item"><div><h4>'+p.name+'</h4>'+
+        '<div class="meta">'+p.caps+' capsules · £'+p.price.toFixed(2)+' each</div>'+
+        '<div class="bk-qty"><button onclick="changeQty(\''+b.key+'\',-1)">&minus;</button><span>'+b.qty+'</span><button onclick="changeQty(\''+b.key+'\',1)">+</button></div></div>'+
+        '<div class="line">£'+(p.price*b.qty).toFixed(2)+'</div>'+
+        '<button class="bk-remove" onclick="removeItem(\''+b.key+'\')">Remove</button></div>';
+    });
+    document.getElementById('subRow').style.display='flex';
+    html+='<div class="bk-summary">'+summaryRows(false)+'</div>';
+    wrap.innerHTML=html;
+  }
+  function openBasket(){
+    document.getElementById('basket').classList.add('open');
+    document.getElementById('basketScrim').classList.add('show');
+    document.getElementById('basket').setAttribute('aria-hidden','false');
+    showBasketView('bkView'); renderBasket();
+  }
+  function closeBasket(){
+    document.getElementById('basket').classList.remove('open');
+    document.getElementById('basketScrim').classList.remove('show');
+    document.getElementById('basket').setAttribute('aria-hidden','true');
+  }
+  function showBasketView(id){
+    ['bkView','coView','confView'].forEach(v=>document.getElementById(v).style.display = v===id?'block':'none');
+  }
+  function gotoCheckout(){
+    if(basket.length===0) return;
+    promoApplied=isDedicated();
+    document.getElementById('coSummary').innerHTML=summaryRows(true);
+    document.getElementById('payBtn').textContent='Pay £'+orderGrandTotal().toFixed(2);
+    showBasketView('coView');
+  }
+  function backToBasket(){ showBasketView('bkView'); }
+  function placeOrder(){
+    const name=document.getElementById('coName').value.trim();
+    const email=document.getElementById('coEmail').value.trim();
+    const addr=document.getElementById('coAddr').value.trim();
+    const err=document.getElementById('coErr');
+    if(!name||!email||!addr){ err.textContent='Please add your name, email and address.'; err.style.display='block'; return; }
+    // payment details
+    const cardName=document.getElementById('coCardName').value.trim();
+    const cardNum=document.getElementById('coCardNum').value.replace(/\s+/g,'');
+    const cardExp=document.getElementById('coCardExp').value.trim();
+    const cardCvc=document.getElementById('coCardCvc').value.trim();
+    if(!cardName || !/^\d{12,19}$/.test(cardNum) || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(cardExp) || !/^\d{3,4}$/.test(cardCvc)){
+      err.textContent='Please enter valid payment details to complete your order.'; err.style.display='block'; return;
+    }
+    err.style.display='none';
+    const num='AGN-'+Math.floor(100000+Math.random()*900000);
+    orders[num]={placedAt:Date.now(), total:orderGrandTotal(), subscription:subscribe, name, items:basket.map(b=>({...b}))};
+    basket=[]; subscribe=false; promoApplied=false;
+    const st=document.getElementById('subToggle'); if(st) st.checked=false;
+    ['coCardName','coCardNum','coCardExp','coCardCvc'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; });
+    updateBadge(); persistBasket();
+    lastOrder=num;
+    document.getElementById('confNum').textContent=num;
+    showBasketView('confView');
+  }
+  function trackFromConfirm(){
+    closeBasket(); openTab('track');
+    document.getElementById('trackNum').value=lastOrder; track();
+  }
+
+  /* ---------- PARCEL TRACKING ---------- */
+  const STAGES=['Confirmed','Packed','Shipped','Out for delivery','Delivered'];
+  let trackingNow='';
+  function getStatus(raw){
+    const num=(raw||'').trim().toUpperCase();
+    if(!/^AGN-\d{6}$/.test(num)) return {ok:false};
+    let placed, stage;
+    if(orders[num]){
+      placed=orders[num].placedAt;
+      stage=Math.min(4, Math.floor((Date.now()-placed)/8000)); // demo: advances a stage every 8s
+    }else{
+      let h=0; for(const c of num) h=(h*31+c.charCodeAt(0))>>>0;
+      stage=h%4;                                   // stable 0–3 for unknown codes
+      placed=Date.now()-stage*24*3600*1000;
+    }
+    return {ok:true, num, stage, placed:new Date(placed)};
+  }
+  function fmt(d){
+    const wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return wd[d.getDay()]+' '+d.getDate()+' '+mo[d.getMonth()]+' '+d.getFullYear();
+  }
+  function track(){
+    const r=getStatus(document.getElementById('trackNum').value);
+    const out=document.getElementById('trackResult');
+    if(!r.ok){
+      trackingNow='';
+      out.innerHTML='<div class="track-error">We couldn\'t find that order. Order numbers look like <strong>AGN-123456</strong>. Place an order in the basket to generate one.</div>';
+      return;
+    }
+    trackingNow=r.num;
+    const est=new Date(r.placed.getTime()+3*24*3600*1000);
+    let steps='<div class="tl-line"></div><div class="tl-fill" style="width:'+((r.stage/4)*80)+'%"></div>';
+    STAGES.forEach((s,i)=>{
+      const cls=i<r.stage?'done':(i===r.stage?'current':'');
+      steps+='<div class="tl-step '+cls+'"><div class="tl-dot">'+(i<r.stage?'&#10003;':'')+'</div><div class="tl-label">'+s+'</div></div>';
+    });
+    out.innerHTML='<div class="track-card"><div class="track-meta">'+
+      '<div class="m"><span class="k">Order</span><span class="v">'+r.num+'</span></div>'+
+      '<div class="m"><span class="k">Placed</span><span class="v">'+fmt(r.placed)+'</span></div>'+
+      '<div class="m"><span class="k">Status</span><span class="v status">'+STAGES[r.stage]+'</span></div>'+
+      '<div class="m"><span class="k">'+(r.stage===4?'Delivered':'Est. delivery')+'</span><span class="v">'+fmt(r.stage===4?r.placed:est)+'</span></div>'+
+      '</div><div class="timeline">'+steps+'</div></div>';
+  }
+  // keep a freshly placed order visibly moving through its stages
+  setInterval(()=>{
+    if(trackingNow && document.getElementById('track').classList.contains('active') && document.getElementById('trackNum').value){ track(); }
+  },4000);
+
+  function showProduct(which, el){
+    document.querySelectorAll('.ps-panel').forEach(p=>p.classList.remove('active'));
+    const pan=document.getElementById('ps-'+which); if(pan) pan.classList.add('active');
+    document.querySelectorAll('#productSwitch .ps-tab').forEach(t=>t.classList.remove('active'));
+    if(el) el.classList.add('active');
+  }
+  function openTab(id, el){
+    setActiveTab(id, el);
+    storeSet('agenova_tab', id);
+    document.getElementById('dashboard').scrollIntoView({behavior:'smooth'});
+  }
+  function setActiveTab(id, el){
+    const panel=document.getElementById(id);
+    if(!panel) return;
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    panel.classList.add('active');
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    if(el){ el.classList.add('active'); }
+    else{
+      document.querySelectorAll('.tab').forEach(t=>{
+        if(t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('active');
+      });
+    }
+  }
+
+  /* ---------- GENERIC STORAGE ---------- */
+  async function storeSet(key,val){
+    const data=JSON.stringify(val);
+    try{ if(window.storage && window.storage.set){ await window.storage.set(key,data,false); return; } }catch(e){}
+    try{ localStorage.setItem(key,data); }catch(e){}
+  }
+  async function storeGet(key){
+    let raw=null;
+    try{ if(window.storage && window.storage.get){ const r=await window.storage.get(key,false); if(r && r.value!=null) raw=r.value; } }catch(e){}
+    if(raw===null){ try{ raw=localStorage.getItem(key); }catch(e){} }
+    if(raw){ try{ return JSON.parse(raw); }catch(e){} }
+    return null;
+  }
+  function esc(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+  /* ---------- DAILY ROUTINE / STREAK ---------- */
+  const REWARD_DAYS=30;
+  let routine={log:[]};
+  function dayKey(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function todayKey(){ return dayKey(new Date()); }
+  function persistRoutine(){ storeSet('agenova_routine', routine); }
+  async function restoreRoutine(){
+    const r=await storeGet('agenova_routine');
+    if(r && Array.isArray(r.log)) routine={log:r.log.filter(x=>typeof x==='string')};
+    renderRoutine();
+  }
+  function logToday(){
+    const t=todayKey();
+    if(!routine.log.includes(t)){ routine.log.push(t); persistRoutine(); renderRoutine(); showToast('Dose logged ✓','Nice, that\'s today\'s two capsules tracked.'); }
+  }
+  function streakInfo(){
+    const set=new Set(routine.log);
+    let cur=0; const d=new Date();
+    if(!set.has(dayKey(d))) d.setDate(d.getDate()-1);
+    while(set.has(dayKey(d))){ cur++; d.setDate(d.getDate()-1); }
+    return {cur, total:set.size};
+  }
+  function isDedicated(){ return streakInfo().total>=REWARD_DAYS; }
+  function renderRoutine(){
+    const s=streakInfo();
+    document.getElementById('rStreak').innerHTML=s.cur+'<small> days</small>';
+    document.getElementById('rTotal').innerHTML=s.total+'<small> total</small>';
+    const logged=routine.log.includes(todayKey());
+    const btn=document.getElementById('doseBtn');
+    btn.disabled=logged; btn.style.opacity=logged?.5:1; btn.style.pointerEvents=logged?'none':'auto';
+    btn.textContent=logged?"Today's dose logged ✓":"Mark today's dose as taken";
+    const set=new Set(routine.log); let cells=''; const now=new Date();
+    for(let i=REWARD_DAYS-1;i>=0;i--){ const d=new Date(now); d.setDate(d.getDate()-i); const k=dayKey(d); const cls=((set.has(k)?'on':'')+(i===0?' today':'')).trim(); cells+='<i class="'+cls+'"></i>'; }
+    document.getElementById('heat').innerHTML=cells;
+    const box=document.getElementById('rewardBox');
+    if(isDedicated()){
+      box.innerHTML='<div class="reward unlocked"><h4>★ Dedication reward unlocked</h4><p>You\'ve logged 30+ days of doses, so your 15% loyalty discount is now applied automatically at checkout.</p></div>';
+    } else {
+      const left=REWARD_DAYS-s.total; const pct=Math.min(100,Math.round(s.total/REWARD_DAYS*100));
+      box.innerHTML='<div class="reward locked"><h4>Loyalty reward</h4><p>Log '+REWARD_DAYS+' days of doses to unlock 15% off your next order, '+left+' to go.</p><div class="pbar"><i style="width:'+pct+'%"></i></div></div>';
+    }
+  }
+
+  /* ---------- REVIEWS ---------- */
+  /* === SHARED REVIEWS (optional server) ===
+     To make reviews shared across ALL visitors, create a free Supabase project,
+     add a table called "reviews" (columns: name text, rating int2, text text,
+     created_at timestamptz default now()), then paste your Project URL and
+     publishable/anon key below. Leave them blank to keep reviews on-device. */
+  const SUPABASE_URL = '';   // e.g. 'https://abcdyourref.supabase.co'
+  const SUPABASE_KEY = '';   // your publishable / anon key (safe to expose)
+  const reviewsOnServer = () => !!(SUPABASE_URL && SUPABASE_KEY);
+  function sbHeaders(extra){ return Object.assign({ apikey:SUPABASE_KEY, Authorization:'Bearer '+SUPABASE_KEY, 'Content-Type':'application/json' }, extra||{}); }
+  function fmtReviewDate(d){ const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return d.getDate()+' '+mo[d.getMonth()]+' '+d.getFullYear(); }
+  async function loadServerReviews(){
+    const res=await fetch(SUPABASE_URL+'/rest/v1/reviews?select=name,rating,text,created_at&order=created_at.desc&limit=100',{headers:sbHeaders()});
+    if(!res.ok) throw new Error('load failed');
+    const rows=await res.json();
+    return rows.map(r=>({name:r.name, rating:r.rating, text:r.text, date:fmtReviewDate(new Date(r.created_at))}));
+  }
+  async function postServerReview(rev){
+    const res=await fetch(SUPABASE_URL+'/rest/v1/reviews',{method:'POST',headers:sbHeaders({'Prefer':'return=minimal'}),body:JSON.stringify({name:rev.name,rating:rev.rating,text:rev.text})});
+    if(!res.ok) throw new Error('post failed');
+  }
+
+  const SEED_REVIEWS=[];
+  let userReviews=[];
+  function allReviews(){ return userReviews.concat(SEED_REVIEWS); }
+  function starStr(n){ let s=''; for(let i=1;i<=5;i++){ s+= i<=n?'★':'<span class="off">★</span>'; } return s; }
+  function persistReviews(){ storeSet('agenova_reviews', userReviews); }
+  async function restoreReviews(){
+    if(reviewsOnServer()){
+      try{ userReviews=await loadServerReviews(); renderReviews(); return; }catch(e){ /* fall back to device */ }
+    }
+    const r=await storeGet('agenova_reviews');
+    if(Array.isArray(r)) userReviews=r;
+    renderReviews();
+  }
+  function renderReviews(){
+    const all=allReviews();
+    if(all.length===0){
+      document.getElementById('revAvg').textContent='—';
+      document.getElementById('revStars').innerHTML=starStr(0);
+      document.getElementById('revCount').textContent='No reviews yet';
+      document.getElementById('revList').innerHTML='<p style="color:var(--muted);font-size:.92rem">No reviews yet. Be the first to share your experience below.</p>';
+      return;
+    }
+    const avg=all.reduce((s,r)=>s+(+r.rating||0),0)/all.length;
+    document.getElementById('revAvg').textContent=avg.toFixed(1);
+    document.getElementById('revStars').innerHTML=starStr(Math.round(avg));
+    document.getElementById('revCount').textContent=all.length+' review'+(all.length===1?'':'s');
+    document.getElementById('revList').innerHTML=all.map(r=>
+      '<div class="review"><div class="top"><span class="nm">'+esc(r.name)+'</span><span class="dt">'+esc(r.date)+'</span></div>'+
+      '<div class="stars">'+starStr(r.rating)+'</div><p>'+esc(r.text)+'</p></div>').join('');
+  }
+  async function addReview(){
+    const name=(document.getElementById('rvName').value||'').trim()||'Anonymous';
+    const rating=parseInt(document.getElementById('rvRating').value)||5;
+    const text=(document.getElementById('rvText').value||'').trim();
+    if(!text){ document.getElementById('rvText').focus(); return; }
+    const rev={name, rating, text, date:fmtReviewDate(new Date())};
+    if(reviewsOnServer()){
+      try{
+        await postServerReview(rev);
+        userReviews=await loadServerReviews();
+        renderReviews();
+        document.getElementById('rvName').value=''; document.getElementById('rvText').value='';
+        showToast('Review posted','Thanks — your review is now live for everyone.');
+        return;
+      }catch(e){ showToast('Could not post','Please try again in a moment.'); return; }
+    }
+    userReviews.unshift(rev);
+    persistReviews(); renderReviews();
+    document.getElementById('rvName').value=''; document.getElementById('rvText').value='';
+    showToast('Review posted','Thanks for sharing your experience.');
+  }
+
+  const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function calc(){
+    const pills=Math.max(0,parseInt(document.getElementById('pills').value)||0);
+    const dose=parseInt(document.getElementById('dose').value)||2;
+    const days=Math.floor(pills/dose);
+
+    document.getElementById('days').innerHTML = days + '<small> days left</small>';
+    document.getElementById('bottles').textContent = (pills/120).toFixed(1);
+
+    // bar relative to a full bottle's worth of days at this dose
+    const fullDays=Math.floor(120/dose);
+    const pct=Math.min(100,Math.round((days/fullDays)*100));
+    document.getElementById('bar').style.width = pct + '%';
+
+    const now=new Date(2026,5,2); // demo "today": 2 Jun 2026
+    const out=new Date(now); out.setDate(out.getDate()+days);
+    document.getElementById('runout').textContent = days===0 ? 'Out now' : (out.getDate()+' '+months[out.getMonth()]+' '+out.getFullYear());
+
+    const reorderDays=Math.max(0,days-14);
+    const re=new Date(now); re.setDate(re.getDate()+reorderDays);
+    const reEl=document.getElementById('reorder');
+    if(days<=14){ reEl.textContent='⚠ Low supply, reorder now to avoid a gap.'; }
+    else{ reEl.textContent='Reorder by '+re.getDate()+' '+months[re.getMonth()]+' '+re.getFullYear()+' to avoid a gap.'; }
+  }
+  /* ---------- ACCOUNT (saved on this device) ---------- */
+  let accounts={}, session=null;
+  function hashPw(s){ let h=5381; for(let i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))>>>0; } return h.toString(16); }
+  function persistAccounts(){ storeSet('agenova_accounts', accounts); }
+  function persistSession(){ storeSet('agenova_session', session); }
+  async function restoreAccount(){
+    const a=await storeGet('agenova_accounts'); if(a && typeof a==='object') accounts=a;
+    const s=await storeGet('agenova_session'); if(typeof s==='string') session=s;
+    renderAccount();
+  }
+  function val(id){ const e=document.getElementById(id); return e?e.value:''; }
+  function accMsg(t,cls){ const m=document.getElementById('acMsg'); if(m){ m.textContent=t; m.className='promo-msg '+(cls||''); } }
+  function signup(){
+    const name=val('acSignName').trim(), email=val('acSignEmail').trim().toLowerCase(), pw=val('acSignPass');
+    if(!name||!email||!pw){ accMsg('Please fill in your name, email and password.','bad'); return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ accMsg('Please enter a valid email address.','bad'); return; }
+    if(accounts[email]){ accMsg('An account with that email already exists — try logging in.','bad'); return; }
+    accounts[email]={name, hash:hashPw(pw)}; session=email; persistAccounts(); persistSession(); renderAccount();
+    showToast('Welcome, '+name+'!','Your account has been created.');
+  }
+  function login(){
+    const email=val('acLogEmail').trim().toLowerCase(), pw=val('acLogPass');
+    if(!accounts[email] || accounts[email].hash!==hashPw(pw)){ accMsg('Email or password not recognised.','bad'); return; }
+    session=email; persistSession(); renderAccount();
+    showToast('Welcome back, '+accounts[email].name+'!','You are logged in.');
+  }
+  function logout(){ session=null; persistSession(); renderAccount(); }
+  function updateGreeting(){
+    const el=document.getElementById('navGreet');
+    if(!el) return;
+    const on = session && accounts[session];
+    el.textContent = on ? ('Hi, '+accounts[session].name.split(' ')[0]) : '';
+    el.style.display = on ? 'inline' : 'none';
+  }
+  function renderAccount(){
+    updateGreeting();
+    const v=document.getElementById('accountView'); if(!v) return;
+    if(session && accounts[session]){
+      const u=accounts[session];
+      v.innerHTML='<div class="card" style="margin-bottom:14px"><div class="role">Signed in</div><h4>'+esc(u.name)+'</h4><p>'+esc(session)+'</p></div>'+
+        '<button class="btn btn-ghost" onclick="logout()">Log out</button>';
+    } else {
+      v.innerHTML=
+        '<div class="rev-form" style="margin-bottom:16px"><h4>Create an account</h4>'+
+          '<div class="co-field"><label>Full name</label><input id="acSignName" placeholder="Jordan Smith"></div>'+
+          '<div class="co-field"><label>Email</label><input id="acSignEmail" placeholder="you@email.com"></div>'+
+          '<div class="co-field"><label>Password</label><input id="acSignPass" type="password" placeholder="Choose a password"></div>'+
+          '<button class="btn btn-primary" onclick="signup()">Sign up</button>'+
+        '</div>'+
+        '<div class="rev-form"><h4>Log in</h4>'+
+          '<div class="co-field"><label>Email</label><input id="acLogEmail" placeholder="you@email.com"></div>'+
+          '<div class="co-field"><label>Password</label><input id="acLogPass" type="password" placeholder="Your password"></div>'+
+          '<button class="btn btn-primary" onclick="login()">Log in</button>'+
+        '</div>'+
+        '<p class="promo-msg" id="acMsg" style="margin-top:10px"></p>';
+    }
+  }
+
+  /* ---------- HELP ASSISTANT ---------- */
+  let chatInit=false;
+  function toggleChat(){
+    const p=document.getElementById('chatPanel');
+    const open=p.classList.toggle('open');
+    if(open && !chatInit){ botSay("Hi! I'm the Agenova assistant. Ask me about dosage, ingredients, pricing, shipping, tracking, rewards or your account."); chatInit=true; }
+  }
+  function botSay(t){ addMsg(t,'bot'); }
+  function addMsg(t,cls){ const b=document.getElementById('chatBody'); const d=document.createElement('div'); d.className='msg '+cls; d.textContent=t; b.appendChild(d); b.scrollTop=b.scrollHeight; }
+  function chatQuick(q){ const p=document.getElementById('chatPanel'); if(!p.classList.contains('open')) toggleChat(); document.getElementById('chatInput').value=q; chatSend(); }
+  function chatSend(){
+    const inp=document.getElementById('chatInput'); const t=inp.value.trim(); if(!t) return;
+    addMsg(t,'me'); inp.value='';
+    setTimeout(function(){ botSay(botReply(t)); }, 300);
+  }
+  function botReply(q){
+    const s=q.toLowerCase();
+    const has=function(){ for(var i=0;i<arguments.length;i++){ if(s.indexOf(arguments[i])>=0) return true; } return false; };
+    if(has("how many","dose","take ","daily","per day","when do","how do i take")) return "Take two capsules a day, ideally with a meal and water. You can take them together or split between morning and evening.";
+    if(has("botox","filler","aesthetic","treatment")) return "Many people pair skin nutrition with treatments like Botox. Agenova can sit alongside that routine, but it is not a substitute for professional advice and makes no claim to change a procedure's results, so check with your practitioner.";
+    if(has("ingredient","contain","inside","whats in","what's in","vitamin","zinc","omega","collagen")) return "Each capsule blends vitamins C, E and D, zinc for skin maintenance, omega-3 for skin health, and collagen peptides. Two capsules give the full daily blend.";
+    if(has("what does","what is it","benefit","do for","good for","help")) return "Agenova is a daily food supplement for skin and vitality. It supports the body's normal skin maintenance and complements a healthy lifestyle. It is not a medicine and does not treat conditions.";
+    if(has("food","natural","is it a medicine","medicine","drug")) return "Agenova is a food supplement, not a medicine. It tops up nutrients that support normal skin, alongside a balanced diet.";
+    if(has("skin+","skin plus","second product","other product","skin health formula")) return "Agenova Skin+ is our premium daily skin and collagen formula (vitamins C and E, zinc, biotin, selenium, collagen peptides, hyaluronic acid, CoQ10 and astaxanthin), one capsule a day. Single bottle £24.99, 3 bottles £64.99, 6 bottles £119.99. See the Skin+ tab.";
+    if(has("price","cost","how much","bundle","plan","cheap")) return "Plans: 1-month starter £22.99 (plus £4 shipping), 2-month £39.99 (plus £4 shipping), 6-month £79.99 (free shipping), full-year £139.99 (free shipping, best value). There's also Agenova Skin+ from £24.99. Subscribe & Save takes 10% off.";
+    if(has("ship","delivery","postage","arrive","shipping")) return "Shipping is free on the 6-month and full-year bundles. The 2-month supply has a £4 flat shipping fee.";
+    if(has("track","order number","parcel","where is my")) return "Open the Track Order tab and enter your order number (it looks like AGN-123456) to see your parcel's status.";
+    if(has("subscribe","recurring","auto","save 10")) return "Toggle Subscribe & Save in your basket for 10% off with automatic delivery. You can cancel anytime.";
+    if(has("reward","loyalty","discount","15%","streak")) return "Log your daily dose in My Routine. Reach a 30-day streak and a 15% loyalty discount is applied automatically at checkout.";
+    if(has("account","sign up","signup","log in","login","register")) return "Go to the Account tab to create an account or log in. Your details are saved on this device.";
+    if(has("vegan","allerg","gluten","suitab")) return "For specific dietary or allergen questions, please check the on-pack label or get in touch, as formulations can vary.";
+    if(has("store","storage","keep it")) return "Keep the bottle tightly closed in a cool, dry place, out of reach of children.";
+    if(has("refund","return","money back","cancel order")) return "For returns or cancellations please get in touch and we'll help, subject to our terms.";
+    if(has("pregnan","breastfeed","medication","doctor","is it safe","safe")) return "If you are pregnant, breastfeeding, taking medication or under medical supervision, please speak to your doctor or pharmacist before use.";
+    if(has("hello","hi ","hey","thank")) return "Happy to help! Ask me about dosage, ingredients, pricing, shipping, tracking, rewards or your account.";
+    return "I'm not sure about that one. Try asking about dosage, ingredients, pricing, shipping, tracking, rewards or your account, or have a look at the FAQ tab.";
+  }
+
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  calc();
+  restoreBasket();
+  restoreRoutine();
+  restoreReviews();
+  restoreAccount();
+  storeGet('agenova_tab').then(t=>{ if(t && document.getElementById(t)) setActiveTab(t); });
+</script>
+<script>
+  (function(){
+    var s=document.getElementById('splash');
+    if(!s) return;
+    var hide=function(){ s.classList.add('hide'); };
+    window.addEventListener('load', function(){ setTimeout(hide, 1500); });
+    s.addEventListener('click', hide);   // tap to skip
+    setTimeout(hide, 3500);              // safety: never get stuck
+  })();
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  }
+</script>
+</body>
+</html>
