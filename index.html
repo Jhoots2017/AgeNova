@@ -1436,8 +1436,8 @@
      add a table called "reviews" (columns: name text, rating int2, text text,
      created_at timestamptz default now()), then paste your Project URL and
      publishable/anon key below. Leave them blank to keep reviews on-device. */
-  const SUPABASE_URL = '';   // e.g. 'https://abcdyourref.supabase.co'
-  const SUPABASE_KEY = '';   // your publishable / anon key (safe to expose)
+  const SUPABASE_URL = 'https://nrbbjmksqfpyqzicecga.supabase.co';   // e.g. 'https://abcdyourref.supabase.co'
+  const SUPABASE_KEY = 'sb_publishable_ildBbZd3vLe2IG9bDo9gZw_fv_S0slW';   // your publishable / anon key (safe to expose)
   const reviewsOnServer = () => !!(SUPABASE_URL && SUPABASE_KEY);
   function sbHeaders(extra){ return Object.assign({ apikey:SUPABASE_KEY, Authorization:'Bearer '+SUPABASE_KEY, 'Content-Type':'application/json' }, extra||{}); }
   function fmtReviewDate(d){ const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return d.getDate()+' '+mo[d.getMonth()]+' '+d.getFullYear(); }
