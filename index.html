@@ -1528,53 +1528,122 @@
     if(days<=14){ reEl.textContent='⚠ Low supply, reorder now to avoid a gap.'; }
     else{ reEl.textContent='Reorder by '+re.getDate()+' '+months[re.getMonth()]+' '+re.getFullYear()+' to avoid a gap.'; }
   }
-  /* ---------- ACCOUNT (saved on this device) ---------- */
-  let accounts={}, session=null;
+  /* ---------- ACCOUNT (real logins via Supabase when configured, else on-device) ---------- */
+  const authOnServer = () => reviewsOnServer();
+  let accounts={}, session=null;          // device-mode fallback
+  let authSession=null, authUser=null;    // server-mode
   function hashPw(s){ let h=5381; for(let i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))>>>0; } return h.toString(16); }
   function persistAccounts(){ storeSet('agenova_accounts', accounts); }
   function persistSession(){ storeSet('agenova_session', session); }
+  function persistAuth(){ storeSet('agenova_auth', authSession); }
+  function currentUser(){
+    if(authOnServer()) return authUser;
+    return (session && accounts[session]) ? {name:accounts[session].name, email:session} : null;
+  }
+  function authErr(d){ return (d&&(d.msg||d.error_description||d.message||d.error))||''; }
+  async function sbSignup(name,email,pw){
+    const res=await fetch(SUPABASE_URL+'/auth/v1/signup',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({email,password:pw,data:{name}})});
+    const d=await res.json(); if(!res.ok) throw new Error(authErr(d)||'Sign up failed'); return d;
+  }
+  async function sbLogin(email,pw){
+    const res=await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})});
+    const d=await res.json(); if(!res.ok) throw new Error(authErr(d)||'Login failed'); return d;
+  }
+  async function sbGetUser(token){
+    const res=await fetch(SUPABASE_URL+'/auth/v1/user',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+token}});
+    if(!res.ok) throw new Error('invalid'); return res.json();
+  }
+  async function sbRefresh(rt){
+    const res=await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:rt})});
+    if(!res.ok) throw new Error('refresh failed'); return res.json();
+  }
+  function uname(u,email){ return (u&&u.user_metadata&&u.user_metadata.name)||(email?email.split('@')[0]:'there'); }
   async function restoreAccount(){
+    if(authOnServer()){
+      const a=await storeGet('agenova_auth');
+      if(a && a.access_token){
+        try{ const u=await sbGetUser(a.access_token); authSession=a; authUser={name:uname(u,u.email), email:u.email}; }
+        catch(e){
+          try{ const d=await sbRefresh(a.refresh_token); authSession={access_token:d.access_token,refresh_token:d.refresh_token}; authUser={name:uname(d.user,d.user&&d.user.email), email:d.user&&d.user.email}; persistAuth(); }
+          catch(e2){ authSession=null; authUser=null; persistAuth(); }
+        }
+      }
+      renderAccount(); return;
+    }
     const a=await storeGet('agenova_accounts'); if(a && typeof a==='object') accounts=a;
     const s=await storeGet('agenova_session'); if(typeof s==='string') session=s;
     renderAccount();
   }
   function val(id){ const e=document.getElementById(id); return e?e.value:''; }
   function accMsg(t,cls){ const m=document.getElementById('acMsg'); if(m){ m.textContent=t; m.className='promo-msg '+(cls||''); } }
-  function signup(){
+  async function signup(){
     const name=val('acSignName').trim(), email=val('acSignEmail').trim().toLowerCase(), pw=val('acSignPass');
     if(!name||!email||!pw){ accMsg('Please fill in your name, email and password.','bad'); return; }
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ accMsg('Please enter a valid email address.','bad'); return; }
-    if(accounts[email]){ accMsg('An account with that email already exists — try logging in.','bad'); return; }
+    if(pw.length<6){ accMsg('Password must be at least 6 characters.','bad'); return; }
+    if(authOnServer()){
+      accMsg('Creating your account…','');
+      try{
+        const d=await sbSignup(name,email,pw);
+        if(d.access_token){
+          authSession={access_token:d.access_token, refresh_token:d.refresh_token};
+          authUser={name:uname(d.user,email)||name, email};
+          persistAuth(); renderAccount();
+          showToast('Welcome, '+name+'!','Your account has been created.');
+        } else {
+          accMsg('Account created. Check your email to confirm, then log in.','ok');
+        }
+      }catch(e){ accMsg(e.message||'Could not sign up.','bad'); }
+      return;
+    }
+    if(accounts[email]){ accMsg('An account with that email already exists, try logging in.','bad'); return; }
     accounts[email]={name, hash:hashPw(pw)}; session=email; persistAccounts(); persistSession(); renderAccount();
     showToast('Welcome, '+name+'!','Your account has been created.');
   }
-  function login(){
+  async function login(){
     const email=val('acLogEmail').trim().toLowerCase(), pw=val('acLogPass');
+    if(!email||!pw){ accMsg('Enter your email and password.','bad'); return; }
+    if(authOnServer()){
+      accMsg('Logging in…','');
+      try{
+        const d=await sbLogin(email,pw);
+        authSession={access_token:d.access_token, refresh_token:d.refresh_token};
+        authUser={name:uname(d.user,(d.user&&d.user.email)||email), email:(d.user&&d.user.email)||email};
+        persistAuth(); renderAccount();
+        showToast('Welcome back, '+authUser.name.split(' ')[0]+'!','You are logged in.');
+      }catch(e){ accMsg('Email or password not recognised (or email not yet confirmed).','bad'); }
+      return;
+    }
     if(!accounts[email] || accounts[email].hash!==hashPw(pw)){ accMsg('Email or password not recognised.','bad'); return; }
     session=email; persistSession(); renderAccount();
     showToast('Welcome back, '+accounts[email].name+'!','You are logged in.');
   }
-  function logout(){ session=null; persistSession(); renderAccount(); }
+  async function logout(){
+    if(authOnServer()){
+      if(authSession&&authSession.access_token){ try{ await fetch(SUPABASE_URL+'/auth/v1/logout',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+authSession.access_token}}); }catch(e){} }
+      authSession=null; authUser=null; persistAuth(); renderAccount(); return;
+    }
+    session=null; persistSession(); renderAccount();
+  }
   function updateGreeting(){
-    const el=document.getElementById('navGreet');
-    if(!el) return;
-    const on = session && accounts[session];
-    el.textContent = on ? ('Hi, '+accounts[session].name.split(' ')[0]) : '';
-    el.style.display = on ? 'inline' : 'none';
+    const el=document.getElementById('navGreet'); if(!el) return;
+    const u=currentUser();
+    el.textContent = u ? ('Hi, '+u.name.split(' ')[0]) : '';
+    el.style.display = u ? 'inline' : 'none';
   }
   function renderAccount(){
     updateGreeting();
     const v=document.getElementById('accountView'); if(!v) return;
-    if(session && accounts[session]){
-      const u=accounts[session];
-      v.innerHTML='<div class="card" style="margin-bottom:14px"><div class="role">Signed in</div><h4>'+esc(u.name)+'</h4><p>'+esc(session)+'</p></div>'+
+    const u=currentUser();
+    if(u){
+      v.innerHTML='<div class="card" style="margin-bottom:14px"><div class="role">Signed in</div><h4>'+esc(u.name)+'</h4><p>'+esc(u.email)+'</p></div>'+
         '<button class="btn btn-ghost" onclick="logout()">Log out</button>';
     } else {
       v.innerHTML=
         '<div class="rev-form" style="margin-bottom:16px"><h4>Create an account</h4>'+
           '<div class="co-field"><label>Full name</label><input id="acSignName" placeholder="Jordan Smith"></div>'+
           '<div class="co-field"><label>Email</label><input id="acSignEmail" placeholder="you@email.com"></div>'+
-          '<div class="co-field"><label>Password</label><input id="acSignPass" type="password" placeholder="Choose a password"></div>'+
+          '<div class="co-field"><label>Password</label><input id="acSignPass" type="password" placeholder="At least 6 characters"></div>'+
           '<button class="btn btn-primary" onclick="signup()">Sign up</button>'+
         '</div>'+
         '<div class="rev-form"><h4>Log in</h4>'+
