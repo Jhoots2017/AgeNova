@@ -696,17 +696,11 @@
         <div class="co-field"><label>City</label><input id="coCity" placeholder="London"></div>
         <div class="co-field"><label>Postcode</label><input id="coPost" placeholder="SW1A 1AA"></div>
       </div>
-      <p style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--navy);margin:10px 0 10px">Payment</p>
-      <div class="co-field"><label>Name on card</label><input id="coCardName" placeholder="Jordan Smith"></div>
-      <div class="co-field"><label>Card number</label><input id="coCardNum" inputmode="numeric" placeholder="1234 5678 9012 3456"></div>
-      <div class="co-row">
-        <div class="co-field"><label>Expiry (MM/YY)</label><input id="coCardExp" placeholder="08/28"></div>
-        <div class="co-field"><label>CVC</label><input id="coCardCvc" inputmode="numeric" placeholder="123"></div>
-      </div>
+      <div style="background:var(--ice-soft);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.82rem;color:var(--muted);line-height:1.5;margin:8px 0 4px">🔒 Card payment is handled securely by Stripe. Tap <strong>Pay</strong> and you'll be taken to Stripe's secure page to enter your card, then brought back here. Your card details never touch this site.</div>
       <div class="bk-summary" id="coSummary"></div>
     </div>
     <div class="basket-foot">
-      <button class="btn btn-primary" id="payBtn" onclick="placeOrder()">Pay</button>
+      <button class="btn btn-primary" id="payBtn" onclick="payWithStripe()">Pay</button>
       <div style="text-align:center;margin-top:14px"><button class="co-back" onclick="backToBasket()">&larr; Back to basket</button></div>
     </div>
   </div>
@@ -1317,30 +1311,28 @@
     showBasketView('coView');
   }
   function backToBasket(){ showBasketView('bkView'); }
-  function placeOrder(){
+  async function payWithStripe(){
     const name=document.getElementById('coName').value.trim();
     const email=document.getElementById('coEmail').value.trim();
     const addr=document.getElementById('coAddr').value.trim();
     const err=document.getElementById('coErr');
     if(!name||!email||!addr){ err.textContent='Please add your name, email and address.'; err.style.display='block'; return; }
-    // payment details
-    const cardName=document.getElementById('coCardName').value.trim();
-    const cardNum=document.getElementById('coCardNum').value.replace(/\s+/g,'');
-    const cardExp=document.getElementById('coCardExp').value.trim();
-    const cardCvc=document.getElementById('coCardCvc').value.trim();
-    if(!cardName || !/^\d{12,19}$/.test(cardNum) || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(cardExp) || !/^\d{3,4}$/.test(cardCvc)){
-      err.textContent='Please enter valid payment details to complete your order.'; err.style.display='block'; return;
-    }
+    if(basket.length===0) return;
     err.style.display='none';
-    const num='AGN-'+Math.floor(100000+Math.random()*900000);
-    orders[num]={placedAt:Date.now(), total:orderGrandTotal(), subscription:subscribe, name, items:basket.map(b=>({...b}))};
-    basket=[]; subscribe=false; promoApplied=false;
-    const st=document.getElementById('subToggle'); if(st) st.checked=false;
-    ['coCardName','coCardNum','coCardExp','coCardCvc'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; });
-    updateBadge(); persistBasket();
-    lastOrder=num;
-    document.getElementById('confNum').textContent=num;
-    showBasketView('confView');
+    const btn=document.getElementById('payBtn');
+    const orig=btn.textContent; btn.disabled=true; btn.textContent='Redirecting to secure checkout…';
+    try{
+      const res=await fetch('/.netlify/functions/checkout',{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({ items:basket.map(b=>({key:b.key, qty:b.qty})), subscribe:subscribe, loyalty:promoApplied, email:email, name:name })
+      });
+      const data=await res.json().catch(()=>({}));
+      if(res.ok && data.url){ window.location.href=data.url; return; }
+      err.textContent=data.error||'Could not start secure checkout. Please try again.'; err.style.display='block';
+    }catch(e){
+      err.textContent='Could not reach the payment server. (This only works on your live Netlify site, not the preview here.)'; err.style.display='block';
+    }
+    btn.disabled=false; btn.textContent=orig;
   }
   function trackFromConfirm(){
     closeBasket(); openTab('track');
@@ -1766,6 +1758,21 @@
   restoreReviews();
   restoreAccount();
   storeGet('agenova_tab').then(t=>{ if(t && document.getElementById(t)) setActiveTab(t); });
+  (function(){
+    try{
+      var p=new URLSearchParams(location.search);
+      if(p.get('paid')==='1'){
+        basket=[]; subscribe=false; promoApplied=false;
+        var st=document.getElementById('subToggle'); if(st) st.checked=false;
+        updateBadge(); persistBasket();
+        showToast('Payment successful','Thank you! Your order has been paid.');
+        history.replaceState({},'',location.pathname);
+      } else if(p.get('canceled')==='1'){
+        showToast('Checkout cancelled','No payment was taken, your basket is still here.');
+        history.replaceState({},'',location.pathname);
+      }
+    }catch(e){}
+  })();
 </script>
 <script>
   (function(){
