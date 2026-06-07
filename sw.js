@@ -1,4 +1,4 @@
-const CACHE = 'agenova-v16';
+const CACHE = 'agenova-v26';
 const ASSETS = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-180.png'];
 
 self.addEventListener('install', e => {

@@ -4,6 +4,22 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Agenova™ · Skin & Vitality Supplement</title>
+<meta name="description" content="Agenova™ — daily skin & vitality supplements. Five skin-loving nutrients in one capsule, plus Agenova Skin+. The key to youth.">
+<link rel="canonical" href="https://agenova-food-supplement.netlify.app/">
+<!-- Social share preview (Open Graph + Twitter) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Agenova™">
+<meta property="og:title" content="Agenova™ — The key to youth">
+<meta property="og:description" content="Daily skin & vitality supplements. Five skin-loving nutrients in one capsule, plus Agenova Skin+.">
+<meta property="og:url" content="https://agenova-food-supplement.netlify.app/">
+<meta property="og:image" content="https://agenova-food-supplement.netlify.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agenova™ — The key to youth">
+<meta name="twitter:description" content="Daily skin & vitality supplements, plus Agenova Skin+.">
+<meta name="twitter:image" content="https://agenova-food-supplement.netlify.app/og-image.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c111d" media="(prefers-color-scheme: dark)">
@@ -92,8 +108,8 @@
   .nav-cta:hover{background:var(--navy-mid);transform:translateY(-1px)}
   .nav-left{display:flex;align-items:center;gap:14px}
   .nav-auth{display:inline-flex;align-items:center;gap:10px}
-  .nav-signup{font-family:'Hanken Grotesk';font-weight:700;font-size:.8rem;letter-spacing:.02em;padding:8px 16px;border-radius:100px;border:none;background:var(--gold);color:var(--navy);cursor:pointer;transition:.25s;white-space:nowrap}
-  .nav-signup:hover{filter:brightness(1.05);transform:translateY(-1px)}
+  .nav-signup{font-family:'Hanken Grotesk';font-weight:700;font-size:.8rem;letter-spacing:.02em;padding:8px 16px;border-radius:100px;border:1px solid var(--line);background:#fffdf8;color:var(--navy);cursor:pointer;transition:.25s;white-space:nowrap}
+  .nav-signup:hover{background:#fff;border-color:var(--gold);transform:translateY(-1px)}
   .nav-login{background:none;border:none;color:var(--muted);font-family:'Hanken Grotesk';font-weight:600;font-size:.76rem;cursor:pointer;white-space:nowrap;text-decoration:underline;text-underline-offset:2px;padding:4px}
   .nav-login:hover{color:var(--navy)}
   .auth-wrap{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(6,18,43,.55);backdrop-filter:blur(5px)}
@@ -438,6 +454,17 @@
   .sub-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 18px}
   .sub-toggle .lbl strong{display:block;color:var(--navy);font-size:.95rem}
   .sub-toggle .lbl span{font-size:.78rem;color:var(--muted)}
+  .sub-confirm{background:var(--ice-soft);border:1px solid var(--gold);border-radius:12px;padding:12px 14px;margin:8px 0;font-size:.83rem;color:var(--ink);line-height:1.5}
+  .cookie-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:130;width:calc(100% - 28px);max-width:560px;background:var(--navy);color:#fff;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 16px 50px rgba(6,18,43,.4);font-size:.82rem;line-height:1.45;flex-wrap:wrap}
+  .cookie-actions{display:flex;gap:8px;margin-left:auto}
+  .cookie-ok{background:var(--gold);color:var(--navy);border:none;border-radius:100px;padding:9px 18px;font-weight:700;font-size:.8rem;cursor:pointer;white-space:nowrap}
+  .cookie-more{background:transparent;color:#ffffff;border:none;font-size:.78rem;cursor:pointer;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+  .st-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+  @media(max-width:520px){ .st-grid{grid-template-columns:1fr} }
+  #stockist .co-field input,#stockist .co-field select,#stockist .co-field textarea{background:#ffffff;color:#14203a;border-color:#dcd7cb}
+  #stockist .co-field input::placeholder,#stockist .co-field textarea::placeholder{color:#9aa3b2}
+  #stockist .btn-primary{background:#0c2452;color:#fff;border:none}
+  #stockist .btn-primary:hover{background:#163a72}
   .switch{position:relative;width:46px;height:26px;flex:0 0 auto}
   .switch input{opacity:0;width:0;height:0}
   .switch .sl{position:absolute;inset:0;background:var(--line);border-radius:30px;transition:.25s;cursor:pointer}
@@ -558,8 +585,8 @@
   }
   .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
   .toast strong{font-family:'Fraunces';display:block;font-size:1.05rem;margin-bottom:4px}
-  .toast span{font-size:.88rem;color:var(--ice)}
-  .toast .x{position:absolute;top:10px;right:14px;cursor:pointer;color:var(--ice);font-size:1.1rem;line-height:1;background:none;border:none}
+  .toast span{font-size:.88rem;color:#eaf1fc}
+  .toast .x{position:absolute;top:10px;right:14px;cursor:pointer;color:#eaf1fc;font-size:1.1rem;line-height:1;background:none;border:none}
 
   /* ---------- DARK MODE ---------- */
   @media (prefers-color-scheme: dark){
@@ -586,7 +613,7 @@
     nav{background:rgba(12,17,29,.85)}
     .tabs{background:#111623}
     .dash-head{background:linear-gradient(180deg,#1a2233,#151b29)}
-    .card,.step,.tracker .controls,.faq details,.plan,.menu-btn,.essential,.basket-btn,.bk-item,.track-card,.track-error,.stat-card,.review,.rev-form,.sub-toggle,.reward.locked,.msg.bot,.auth-card{background:#1a2233}
+    .card,.step,.tracker .controls,.faq details,.plan,.menu-btn,.essential,.basket-btn,.bk-item,.track-card,.track-error,.stat-card,.review,.rev-form,.sub-toggle,.reward.locked,.msg.bot,.auth-card,.sub-confirm{background:#1a2233}
     .plan.feat{background:linear-gradient(170deg,#202a40,#171f2f)}
     .field input,.field select,.co-field input,.track-input input,.rev-form select,.rev-form input,.rev-form textarea,.promo input,.chat-input input{background:#10151f;color:var(--ink);border-color:#2c374d}
     .bk-qty button{background:#10151f;color:var(--navy);border-color:#2c374d}
@@ -664,6 +691,8 @@
     <div class="essential"><span>6-month bundle</span><strong>£79.99</strong></div>
     <div class="essential"><span>Full-year bundle <em style="color:var(--gold);font-style:normal;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase">· Best value</em></span><strong>£139.99</strong></div>
     <button onclick="goTab('pricing')">Order now &rarr;</button>
+    <button onclick="closeMenu();document.getElementById('stockist').scrollIntoView({behavior:'smooth'})">Become a stockist</button>
+    <button id="installItem" onclick="installApp()">📲 Install app</button>
     <button onclick="scrollFooter()">Safety &amp; disclaimer</button>
   </div>
 </aside>
@@ -678,7 +707,7 @@
   <div id="bkView">
     <div class="basket-body" id="basketItems"></div>
     <div class="sub-toggle" id="subRow">
-      <div class="lbl"><strong>Subscribe &amp; Save</strong><span>10% off, delivered automatically. Cancel anytime.</span></div>
+      <div class="lbl"><strong>Subscribe &amp; Save</strong><span id="subDesc">1-Month supply: 10% off, billed every month. Cancel anytime.</span></div>
       <label class="switch"><input type="checkbox" id="subToggle" onchange="toggleSubscribe()"><span class="sl"></span></label>
     </div>
     <div class="basket-foot">
@@ -695,6 +724,13 @@
       <div class="co-row">
         <div class="co-field"><label>City</label><input id="coCity" placeholder="London"></div>
         <div class="co-field"><label>Postcode</label><input id="coPost" placeholder="SW1A 1AA"></div>
+      </div>
+      <div id="subConfirmNote" class="sub-confirm" style="display:none">
+        <strong>You're starting a monthly subscription.</strong><br>
+        You'll be charged today and then the same amount automatically <strong>every month</strong> until you cancel. You can cancel anytime.
+        <label style="display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:.82rem">
+          <input type="checkbox" id="subAgree" style="margin-top:3px"> I understand this is a recurring monthly payment.
+        </label>
       </div>
       <div style="background:var(--ice-soft);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.82rem;color:var(--muted);line-height:1.5;margin:8px 0 4px">🔒 Card payment is handled securely by Stripe. Tap <strong>Pay</strong> and you'll be taken to Stripe's secure page to enter your card, then brought back here. Your card details never touch this site.</div>
       <div class="bk-summary" id="coSummary"></div>
@@ -758,7 +794,7 @@
   <div>
     <span class="eyebrow">Daily Skin &amp; Vitality Formula</span>
     <h1>Radiance,<br>made <em>routine.</em></h1>
-    <p class="lede">Agenova™ brings together five skin-loving nutrients in one dark-blue-and-white capsule (vitamins C, E &amp; D, zinc, omega-3 and collagen peptides) to complement a healthy lifestyle, every single day.</p>
+    <p class="lede">Agenova™ — skincare from within. With vitamin C, which contributes to normal collagen formation for the normal function of the skin, plus zinc and biotin to help maintain normal skin, and vitamins C &amp; E to help protect cells from oxidative stress. A food supplement; not a substitute for a varied diet and healthy lifestyle.</p>
     <div class="hero-actions">
       <a href="#dashboard" class="btn btn-primary">Explore the dashboard</a>
       <a href="#pricing" class="btn btn-ghost" onclick="openTab('pricing')">View plans</a>
@@ -789,6 +825,27 @@
   </div>
 </header>
 
+<!-- HOW IT HELPS / BOTOX -->
+<section style="max-width:1100px;margin:0 auto;padding:clamp(40px,7vw,80px) clamp(18px,5vw,64px)">
+  <div class="role" style="color:var(--gold);text-align:center">Skincare from within</div>
+  <h2 style="font-family:'Fraunces',serif;color:var(--ink);font-size:clamp(1.8rem,4.5vw,2.6rem);text-align:center;margin:6px 0 12px;line-height:1.15">How Agenova helps your skin</h2>
+  <p style="max-width:680px;margin:0 auto 28px;text-align:center;color:var(--muted);line-height:1.6">Great skin isn't only about what you put on top. Agenova is a daily food supplement that tops up the nutrients your skin draws on, supporting its normal, everyday upkeep, the perfect inside-out partner to the rest of your routine.</p>
+  <div class="grid g3">
+    <div class="card"><div class="role">Structure</div><h4>Collagen support</h4><p>Vitamin C contributes to normal collagen formation, the protein that helps keep skin firm and supple.</p></div>
+    <div class="card"><div class="role">Protection</div><h4>Antioxidant defence</h4><p>Vitamins C and E help protect skin cells from the everyday oxidative stress they face.</p></div>
+    <div class="card"><div class="role">Upkeep</div><h4>Skin maintenance</h4><p>Zinc supports the maintenance of normal, healthy skin, day after day.</p></div>
+  </div>
+
+  <h3 style="font-family:'Fraunces',serif;color:var(--ink);font-size:clamp(1.4rem,3.5vw,1.9rem);text-align:center;margin:42px 0 10px">Why people take it alongside treatments like Botox</h3>
+  <p style="max-width:720px;margin:0 auto 22px;text-align:center;color:var(--muted);line-height:1.6">Many people who invest in aesthetic treatments such as Botox or fillers also like to look after their skin from within between appointments. Agenova fits that habit, a simple daily step while your practitioner looks after the treatments themselves.</p>
+  <div class="grid g3">
+    <div class="card"><div class="role">Inside &amp; out</div><h4>A complete routine</h4><p>Treatments work on the surface; nutrition supports skin from within. Many people like to do both.</p></div>
+    <div class="card"><div class="role">Between visits</div><h4>An everyday habit</h4><p>Appointments are occasional, skin upkeep is daily. A daily capsule keeps you consistent in between.</p></div>
+    <div class="card"><div class="role">Important</div><h4>Not a treatment</h4><p>Agenova is a food supplement, not a medicine. It doesn't replace, affect or change the result of any procedure. Always follow your clinician's advice.</p></div>
+  </div>
+  <p style="max-width:720px;margin:24px auto 0;text-align:center;font-size:.78rem;color:var(--muted);line-height:1.5">Food supplement. Not intended to diagnose, treat, cure or prevent any disease. Agenova is not associated with Botox or any treatment brand.</p>
+</section>
+
 <!-- DASHBOARD -->
 <!-- PRODUCT SWITCHER -->
 <section class="prod-switch" id="productSwitch">
@@ -805,7 +862,7 @@
       <div class="prod-info">
         <div class="role" style="color:var(--gold)">Daily Skin &amp; Vitality Formula</div>
         <h3 class="prod-title">Agenova <span>Skin &amp; Vitality</span></h3>
-        <p class="prod-desc">Our original five-active daily capsule: vitamins C, E &amp; D, zinc, omega-3 and collagen peptides to support the skin's normal maintenance and complement a healthy lifestyle. 120 capsules, two a day.</p>
+        <p class="prod-desc">A daily food supplement that supports your skin from the inside. Vitamin C contributes to normal collagen formation for the normal function of the skin; zinc and biotin help maintain normal skin; vitamins C &amp; E help protect cells from oxidative stress. With added omega-3 and collagen peptides. 120 capsules, two a day.</p>
         <div class="prod-tags"><span>Vitamin C</span><span>Vitamin E</span><span>Vitamin D</span><span>Zinc</span><span>Omega-3</span><span>Collagen</span></div>
       </div>
       <div class="prod-buy">
@@ -821,7 +878,7 @@
       <span class="sp-badge">★ Premium Formula</span>
       <h3 class="sp-title">Agenova Skin+</h3>
       <p class="sp-sub">Daily Skin Health &amp; Collagen Support</p>
-      <p class="sp-headline">Science-inspired daily nutrition to support healthy skin, collagen formation, and overall wellbeing.</p>
+      <p class="sp-headline">Daily nutrition for your skin: vitamin C contributes to normal collagen formation, and zinc helps maintain normal skin.</p>
       <div class="sp-cols">
         <div class="sp-col">
           <h4>What's inside</h4>
@@ -837,7 +894,8 @@
             <li>Astaxanthin</li>
           </ul>
           <p class="sp-meta">60 capsules · 2-month supply · take 1 capsule daily with water</p>
-          <p class="sp-desc">Agenova Skin+ is a daily food supplement combining vitamins, minerals, collagen peptides and skin-loving actives like hyaluronic acid, CoQ10 and astaxanthin to support healthy skin and normal collagen formation.</p>
+          <p class="sp-desc">Agenova Skin+ combines skin-loving nutrients with collagen peptides, hyaluronic acid, CoQ10 and astaxanthin. Vitamin C contributes to normal collagen formation and zinc helps maintain normal skin, as part of your everyday skincare-from-within routine. A food supplement; not a substitute for a varied diet and healthy lifestyle.</p>
+          <p class="sp-desc" style="margin-top:12px"><strong>Loved alongside treatments.</strong> Many people who have aesthetic treatments like Botox take Skin+ to support their skin from within between appointments. Skin+ is a food supplement, not a medicine, and makes no claim to affect, change or prolong any treatment.</p>
         </div>
         <div class="sp-col">
           <h4>Choose your supply</h4>
@@ -935,7 +993,13 @@
       </div>
 
       <h4 class="ing-h">Alongside treatments like Botox</h4>
-      <p class="ing-p">Many people pair good skin nutrition with aesthetic treatments such as Botox or fillers. Agenova is designed to sit comfortably within that wider skincare routine, supporting your skin from the inside while you look after it from the outside. It is not a medical treatment, doesn't replace anything your practitioner provides, and makes no claim to change the outcome of any procedure, so always follow your clinician's advice.</p>
+      <p class="ing-p">Many people who invest in aesthetic treatments such as Botox or fillers also like to look after their skin from within between appointments. Agenova is built for exactly that habit: a simple daily step that tops up skin-supporting nutrients, while your practitioner looks after the treatments themselves.</p>
+      <p class="ing-p">To be completely clear: Agenova is a <strong>food supplement, not a medicine</strong>. It is not associated with Botox, does not interact with or affect any treatment, and makes no claim to change, improve or prolong the outcome of any procedure. It simply supports your skin's normal, everyday upkeep, the same way a balanced diet would. Always follow the advice of your clinician.</p>
+      <div class="grid g3" style="margin-top:18px">
+        <div class="card"><div class="role">Why people pair them</div><h4>Inside &amp; out</h4><p>Treatments work on the surface; nutrition supports skin from within. Many people like to do both as part of one routine.</p></div>
+        <div class="card"><div class="role">Between visits</div><h4>An everyday habit</h4><p>Appointments are occasional; skin upkeep is daily. Two capsules a day is an easy way to stay consistent in between.</p></div>
+        <div class="card"><div class="role">What it is not</div><h4>Not a treatment</h4><p>Agenova doesn't replace, affect or enhance any procedure. It's daily nutrition, not a medical product.</p></div>
+      </div>
 
       <p class="ing-note">Food supplement. Not intended to diagnose, treat, cure or prevent any disease. Do not exceed two capsules a day.</p>
     </div>
@@ -1124,6 +1188,32 @@
   </div>
 </section>
 
+<!-- BECOME A STOCKIST -->
+<section id="stockist" style="background:#f6f2ea;color:#14203a;padding:clamp(44px,7vw,84px) clamp(18px,5vw,64px);border-top:1px solid #e7e1d4">
+  <div style="max-width:620px;margin:0 auto;text-align:center">
+    <div class="role" style="color:var(--gold)">Trade enquiries</div>
+    <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.7rem,4.5vw,2.4rem);margin:6px 0 10px;color:#0c2452">Become a stockist</h2>
+    <p style="color:#5b6472;line-height:1.6;margin-bottom:22px">Are you a clinic, pharmacy or health store? Stock Agenova for your clients. Send us your details and we'll share trade pricing, ingredient information and a Certificate of Analysis.</p>
+    <form name="stockist" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="stockistForm" onsubmit="return submitStockist(event)" style="text-align:left">
+      <input type="hidden" name="form-name" value="stockist">
+      <p hidden><label>Don't fill this in: <input name="bot-field"></label></p>
+      <div class="st-grid">
+        <div class="co-field"><label style="color:#5b6472">Business name</label><input name="business" required></div>
+        <div class="co-field"><label style="color:#5b6472">Business type</label>
+          <select name="type"><option>Pharmacy</option><option>Aesthetic clinic</option><option>Skin clinic</option><option>Health store</option><option>Other</option></select>
+        </div>
+        <div class="co-field"><label style="color:#5b6472">Your name</label><input name="contact" required></div>
+        <div class="co-field"><label style="color:#5b6472">Email</label><input type="email" name="email" required></div>
+        <div class="co-field"><label style="color:#5b6472">Phone</label><input name="phone"></div>
+        <div class="co-field"><label style="color:#5b6472">City / Region</label><input name="region"></div>
+      </div>
+      <div class="co-field"><label style="color:#5b6472">Message (optional)</label><textarea name="message" rows="3"></textarea></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;margin-top:6px">Send enquiry</button>
+      <p id="stockistMsg" style="text-align:center;margin-top:10px;font-size:.85rem;color:var(--gold);display:none">Thank you, we'll be in touch shortly.</p>
+    </form>
+  </div>
+</section>
+
 <footer>
   <div class="ftop">
     <div class="brand"><span class="dot" style="background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.15)"></span>Agenova<sup style="color:var(--gold)">™</sup></div>
@@ -1151,6 +1241,13 @@
 </div>
 
 <div id="toast" class="toast"><button class="x" onclick="hideToast()">×</button><strong id="toastTitle"></strong><span id="toastMsg"></span></div>
+<div id="cookieBar" class="cookie-bar" style="display:none">
+  <span>We use cookies and store data to run your basket, account, reviews and orders. By using Agenova you agree to this.</span>
+  <div class="cookie-actions">
+    <button class="cookie-ok" onclick="acceptCookies()">Got it</button>
+    <button class="cookie-more" onclick="scrollFooter();acceptCookies()">Privacy</button>
+  </div>
+</div>
 
 <script>
   function toggleMenu(){
@@ -1168,6 +1265,15 @@
   }
   function goTab(id){ openTab(id); closeMenu(); }
   function scrollFooter(){ closeMenu(); document.querySelector('footer').scrollIntoView({behavior:'smooth'}); }
+  function submitStockist(e){
+    e.preventDefault();
+    const form=document.getElementById('stockistForm');
+    const data=new URLSearchParams(new FormData(form)).toString();
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:data})
+      .then(()=>{ const m=document.getElementById('stockistMsg'); if(m) m.style.display='block'; form.reset(); showToast('Enquiry sent','Thanks, we\'ll be in touch shortly.'); })
+      .catch(()=>{ showToast('Could not send','Please email us instead, or try again on the live site.'); });
+    return false;
+  }
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeMenu(); closeBasket(); } });
 
   let toastTimer;
@@ -1222,7 +1328,6 @@
     updateBadge(); persistBasket();
     showToast('Added to basket', PLANS[key].name+' · £'+PLANS[key].price.toFixed(2));
     openBasket();
-    if(key==='year' && !subscribe) setTimeout(openSubPrompt, 450);
   }
   function openSubPrompt(){ document.getElementById('subModal').classList.add('show'); }
   function closeSubPrompt(){ document.getElementById('subModal').classList.remove('show'); }
@@ -1238,25 +1343,35 @@
     el.textContent=n; el.hidden = n===0;
   }
   function basketTotal(){ return basket.reduce((s,b)=>s+PLANS[b.key].price*b.qty,0); }
-  function shippingFee(){ return basket.some(b=>b.key==='month'||b.key==='single'||b.key==='skin1') ? 4 : 0; }   // £4 on single-bottle tiers; bundles ship free
+  function monthSubtotal(){ return basket.filter(b=>b.key==='month').reduce((s,b)=>s+PLANS[b.key].price*b.qty,0); }
+  function subActive(){ return subscribe && basket.some(b=>b.key==='month'); }
+  function subOnly(){ return basket.length>0 && subscribe && basket.every(b=>b.key==='month'); }
+  function shippingFee(){
+    // £4 on one-time single-bottle tiers; a subscribed monthly ships free
+    return basket.some(b => (b.key==='single'||b.key==='skin1') || (b.key==='month' && !subscribe)) ? 4 : 0;
+  }
 
   let subscribe=false, promoApplied=false;
   function summaryRows(includePromo){
     const subtotal=basketTotal(), ship=shippingFee();
-    const sub = subscribe ? subtotal*0.10 : 0;
-    const pro = (includePromo && promoApplied) ? subtotal*0.15 : 0;
+    const sub = subscribe ? monthSubtotal()*0.10 : 0;
+    const oneTimeBase = subtotal - (subscribe?monthSubtotal():0);
+    const pro = (includePromo && promoApplied) ? oneTimeBase*0.15 : 0;
     const total = Math.max(0, subtotal - sub - pro) + ship;
+    const monthly = subOnly();
     let h='<div class="row"><span>Subtotal</span><span>£'+subtotal.toFixed(2)+'</span></div>';
     if(sub>0) h+='<div class="row"><span>Subscribe &amp; Save (−10%)</span><span>−£'+sub.toFixed(2)+'</span></div>';
     if(pro>0) h+='<div class="row"><span>Loyalty reward (−15%)</span><span>−£'+pro.toFixed(2)+'</span></div>';
     h+='<div class="row"><span>Shipping</span><span>'+(ship>0?'£'+ship.toFixed(2):'Free')+'</span></div>';
-    h+='<div class="row total"><span>Total'+(includePromo?' due':'')+'</span><span>£'+total.toFixed(2)+'</span></div>';
+    h+='<div class="row total"><span>'+(monthly?'Per month':('Total'+(includePromo?' due':'')))+'</span><span>£'+total.toFixed(2)+(monthly?' /mo':'')+'</span></div>';
+    if(monthly) h+='<div class="row" style="font-size:.74rem;color:var(--muted);margin-top:4px"><span>Billed monthly until cancelled</span><span></span></div>';
     return h;
   }
   function orderGrandTotal(){
     const subtotal=basketTotal(), ship=shippingFee();
-    const sub = subscribe ? subtotal*0.10 : 0;
-    const pro = promoApplied ? subtotal*0.15 : 0;
+    const sub = subscribe ? monthSubtotal()*0.10 : 0;
+    const oneTimeBase = subtotal - (subscribe?monthSubtotal():0);
+    const pro = promoApplied ? oneTimeBase*0.15 : 0;
     return Math.max(0, subtotal - sub - pro) + ship;
   }
   function toggleSubscribe(){ subscribe=document.getElementById('subToggle').checked; renderBasket(); }
@@ -1279,13 +1394,26 @@
     let html='';
     basket.forEach(b=>{
       const p=PLANS[b.key];
-      html+='<div class="bk-item"><div><h4>'+p.name+'</h4>'+
-        '<div class="meta">'+p.caps+' capsules · £'+p.price.toFixed(2)+' each</div>'+
+      const nm=(b.key==='month' && subscribe) ? p.name+' <span style="color:var(--gold);font-weight:600">(subscription)</span>' : p.name;
+      html+='<div class="bk-item"><div><h4>'+nm+'</h4>'+
+        '<div class="meta">'+p.caps+' capsules · £'+p.price.toFixed(2)+(b.key==='month'&&subscribe?' / month':' each')+'</div>'+
         '<div class="bk-qty"><button onclick="changeQty(\''+b.key+'\',-1)">&minus;</button><span>'+b.qty+'</span><button onclick="changeQty(\''+b.key+'\',1)">+</button></div></div>'+
         '<div class="line">£'+(p.price*b.qty).toFixed(2)+'</div>'+
         '<button class="bk-remove" onclick="removeItem(\''+b.key+'\')">Remove</button></div>';
     });
-    document.getElementById('subRow').style.display='flex';
+    const hasMonth=basket.some(b=>b.key==='month');
+    const subRow=document.getElementById('subRow');
+    const subToggle=document.getElementById('subToggle');
+    const subDesc=document.getElementById('subDesc');
+    if(hasMonth){
+      subRow.style.display='flex';
+      subToggle.disabled=false; subToggle.checked=subscribe;
+      subDesc.textContent='1-Month supply: 10% off, billed every month. Cancel anytime.';
+    } else {
+      if(subscribe){ subscribe=false; }
+      subRow.style.display='none';
+      subToggle.checked=false;
+    }
     html+='<div class="bk-summary">'+summaryRows(false)+'</div>';
     wrap.innerHTML=html;
   }
@@ -1305,9 +1433,19 @@
   }
   function gotoCheckout(){
     if(basket.length===0) return;
+    if(subActive() && !basket.every(b=>b.key==='month')){
+      showToast('Subscriptions are 1-Month only','Remove the bundle items, or switch off Subscribe & Save to buy them as a one-time order.');
+      return;
+    }
     promoApplied=isDedicated();
     document.getElementById('coSummary').innerHTML=summaryRows(true);
-    document.getElementById('payBtn').textContent='Pay £'+orderGrandTotal().toFixed(2);
+    const monthly=subOnly();
+    const t=orderGrandTotal();
+    document.getElementById('payBtn').textContent = monthly ? ('Subscribe · £'+t.toFixed(2)+'/mo') : ('Pay £'+t.toFixed(2));
+    const note=document.getElementById('subConfirmNote');
+    const agree=document.getElementById('subAgree');
+    if(note) note.style.display = monthly ? 'block' : 'none';
+    if(agree) agree.checked = false;
     showBasketView('coView');
   }
   function backToBasket(){ showBasketView('bkView'); }
@@ -1318,6 +1456,10 @@
     const err=document.getElementById('coErr');
     if(!name||!email||!addr){ err.textContent='Please add your name, email and address.'; err.style.display='block'; return; }
     if(basket.length===0) return;
+    if(subOnly()){
+      const agree=document.getElementById('subAgree');
+      if(!agree || !agree.checked){ err.textContent='Please tick the box to confirm you understand this is a recurring monthly payment.'; err.style.display='block'; return; }
+    }
     err.style.display='none';
     const btn=document.getElementById('payBtn');
     const orig=btn.textContent; btn.disabled=true; btn.textContent='Redirecting to secure checkout…';
@@ -1740,7 +1882,7 @@
     if(has("price","cost","how much","bundle","plan","cheap")) return "Plans: 1-month starter £22.99 (plus £4 shipping), 2-month £39.99 (plus £4 shipping), 6-month £79.99 (free shipping), full-year £139.99 (free shipping, best value). There's also Agenova Skin+ from £24.99. Subscribe & Save takes 10% off.";
     if(has("ship","delivery","postage","arrive","shipping")) return "Shipping is free on the 6-month and full-year bundles. The 2-month supply has a £4 flat shipping fee.";
     if(has("track","order number","parcel","where is my")) return "Open the Track Order tab and enter your order number (it looks like AGN-123456) to see your parcel's status.";
-    if(has("subscribe","recurring","auto","save 10")) return "Toggle Subscribe & Save in your basket for 10% off with automatic delivery. You can cancel anytime.";
+    if(has("subscribe","recurring","auto","save 10")) return "Subscribe & Save applies to the 1-Month supply: 10% off and billed automatically every month, with free delivery. You can cancel anytime. Bundles (2-month, 6-month, full-year) are one-time purchases.";
     if(has("reward","loyalty","discount","15%","streak")) return "Log your daily dose in My Routine. Reach a 30-day streak and a 15% loyalty discount is applied automatically at checkout.";
     if(has("account","sign up","signup","log in","login","register")) return "Go to the Account tab to create an account or log in. Your details are saved on this device.";
     if(has("vegan","allerg","gluten","suitab")) return "For specific dietary or allergen questions, please check the on-pack label or get in touch, as formulations can vary.";
@@ -1758,14 +1900,49 @@
   restoreReviews();
   restoreAccount();
   storeGet('agenova_tab').then(t=>{ if(t && document.getElementById(t)) setActiveTab(t); });
+
+  /* ---- Install app (PWA) ---- */
+  let deferredInstall=null;
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredInstall=e; });
+  function isStandalone(){ return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true; }
+  async function installApp(){
+    if(typeof closeMenu==='function') closeMenu();
+    if(isStandalone()){ showToast('Already installed','Agenova is already on your home screen.'); return; }
+    if(deferredInstall){
+      deferredInstall.prompt();
+      try{ await deferredInstall.userChoice; }catch(e){}
+      deferredInstall=null;
+      return;
+    }
+    // iOS / Safari fallback (no install prompt available)
+    const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    if(ios) showToast('Add to Home Screen','Tap the Share button in Safari, then choose “Add to Home Screen.”');
+    else showToast('Install Agenova','Open your browser menu and choose “Install app” or “Add to Home Screen.”');
+  }
+
+  /* ---- Cookie / privacy notice ---- */
+  async function showCookieBarIfNeeded(){
+    let ok=null;
+    try{ if(window.storage && window.storage.get){ const r=await window.storage.get('agenova_cookie_ok', false); if(r && r.value!=null) ok=r.value; } }catch(e){}
+    if(ok===null){ try{ ok=localStorage.getItem('agenova_cookie_ok'); }catch(e){} }
+    if(!ok){ const b=document.getElementById('cookieBar'); if(b) b.style.display='flex'; }
+  }
+  function acceptCookies(){
+    const b=document.getElementById('cookieBar'); if(b) b.style.display='none';
+    try{ if(window.storage && window.storage.set){ window.storage.set('agenova_cookie_ok','1',false); } }catch(e){}
+    try{ localStorage.setItem('agenova_cookie_ok','1'); }catch(e){}
+  }
+  showCookieBarIfNeeded();
   (function(){
     try{
       var p=new URLSearchParams(location.search);
-      if(p.get('paid')==='1'){
+      if(p.get('paid')==='1' || p.get('subscribed')==='1'){
+        var wasSub=p.get('subscribed')==='1';
         basket=[]; subscribe=false; promoApplied=false;
         var st=document.getElementById('subToggle'); if(st) st.checked=false;
         updateBadge(); persistBasket();
-        showToast('Payment successful','Thank you! Your order has been paid.');
+        if(wasSub) showToast('Subscription started','You\'ll be billed monthly until you cancel. Thank you!');
+        else showToast('Payment successful','Thank you! Your order has been paid.');
         history.replaceState({},'',location.pathname);
       } else if(p.get('canceled')==='1'){
         showToast('Checkout cancelled','No payment was taken, your basket is still here.');
